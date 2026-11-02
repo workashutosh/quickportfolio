@@ -41,6 +41,7 @@
     --purple-soft: #fbefff; --purple-fg: #8250df;
     --pink-soft: #ffeff7; --pink-fg: #bf3989;
     --blue-fg: #0969da; --state-blue: #0969da;
+    --px-bg: #f6f8fa; --px-n1: #eaeef2; --px-n2: #d8dee4; --px-n3: #c4ccd5;
     color-scheme: light;
     --purple: #c297ff;
     --pink: #ff80d2;
@@ -62,6 +63,7 @@
     --purple-soft: rgba(171,125,248,.15); --purple-fg: #ab7df8;
     --pink-soft: rgba(219,97,162,.15); --pink-fg: #db61a2;
     --blue-fg: #4493f8; --state-blue: #1f6feb;
+    --px-bg: #151b23; --px-n1: #212830; --px-n2: #2a313c; --px-n3: #3d444d;
     color-scheme: dark;
   }
   * { box-sizing: border-box; }
@@ -220,7 +222,18 @@
   .sk { display: grid; grid-template-columns: 300px minmax(0, 1fr); border-bottom: 1px solid var(--line-2); }
   .sk dt { padding: 22px 32px 22px var(--pad); border-right: 1px solid var(--line-2); font-weight: 600; }
   .sk dd { margin: 0; padding: 18px var(--pad) 18px 40px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
-  .chip { font-family: var(--mono); font-size: 13px; padding: 4px 10px; border: 1px solid var(--line); border-radius: 6px; background: var(--bg-2); }
+  .chip { display: inline-flex; align-items: center; gap: 7px; font-family: var(--mono); font-size: 13px; padding: 5px 10px; border: 1px solid var(--line); border-radius: 6px; background: var(--bg-2); }
+  .chip img, .chip .ci { width: 16px; height: 16px; flex: none; }
+  .chip img.onlight { width: 22px; }
+  :root[data-theme="dark"] .chip img.lift { filter: brightness(2.4) saturate(1.3); }
+  .chip .ci { fill: currentColor; }
+  :root[data-theme="dark"] .chip img.inv, :root[data-theme="dark"] .fact img.inv { filter: invert(1) brightness(1.6); }
+  :root[data-theme="dark"] .chip img.onlight { background: #f6f8fa; border-radius: 3px; padding: 1px 2px; }
+  .client-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; font: 12px var(--mono); color: var(--fg-2); }
+  .client-logo img { height: 22px; width: auto; }
+  .win-bar img.zl { height: 12px; width: auto; }
+  :root[data-theme="dark"] .client-logo img, :root[data-theme="dark"] .win-bar img.zl, :root[data-theme="dark"] .tick img.zl { filter: invert(1); }
+  .tick img.zl { height: 12px; width: auto; vertical-align: -1px; }
 
   /* Closing CTA */
   .closing { padding: 88px var(--pad) 96px; }
@@ -280,6 +293,100 @@
     .more { padding: 28px var(--pad); }
     .tick { padding: 18px 20px; min-height: 92px; }
   }
+
+  /* ---------- AI showcase ---------- */
+  .ai-cell .stage { padding: 24px; margin-bottom: 32px; }
+  .win { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; box-shadow: 0 1px 0 rgba(31,35,40,.04), 0 8px 24px rgba(66,74,83,.08); }
+  .win-bar { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-bottom: 1px solid var(--line-2); font: 12px/1.4 var(--mono); color: var(--fg-2); background: var(--bg-2); }
+  .win-bar .dots { display: flex; gap: 6px; }
+  .win-bar .dots i { width: 10px; height: 10px; border-radius: 50%; background: var(--line); display: block; }
+  .win-bar b { color: var(--fg); font-weight: 500; }
+  .win-bar .sp { flex: 1; }
+  .run-state { display: inline-flex; align-items: center; gap: 6px; height: 22px; padding: 0 9px; border-radius: 999px; font: 600 11.5px/1 var(--sans); background: #9a6700; color: #fff; transition: background .3s; }
+  .run-state.done { background: var(--green-btn); }
+  .run-state .spin { width: 9px; height: 9px; border: 1.5px solid rgba(255,255,255,.45); border-top-color: #fff; border-radius: 50%; animation: spin .8s linear infinite; }
+  .run-state.done .spin { display: none; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Zudio */
+  .zbody { display: grid; grid-template-columns: minmax(0, 1fr) 196px; gap: 20px; padding: 18px; }
+  .prompt { font: 12px/1.5 var(--mono); color: var(--fg-2); background: var(--bg-2); border: 1px solid var(--line-2); border-radius: 6px; padding: 8px 10px; margin-bottom: 12px; min-height: 52px; }
+  .prompt b { color: var(--blue); font-weight: 500; }
+  .steps { list-style: none; margin: 0; padding: 0; }
+  .steps li { display: flex; align-items: center; gap: 10px; padding: 7px 0; font-size: 13.5px; color: var(--fg-2); border-top: 1px solid var(--line-2); transition: color .3s; }
+  .steps li:first-child { border-top: 0; }
+  .steps li .st { width: 16px; height: 16px; border-radius: 50%; border: 1.5px solid var(--line); flex: none; display: grid; place-items: center; transition: background .3s, border-color .3s; }
+  .steps li .st svg { width: 10px; height: 10px; fill: #fff; opacity: 0; transition: opacity .2s; }
+  .steps li.run { color: var(--fg); }
+  .steps li.run .st { border-color: var(--line); border-top-color: #bf8700; animation: spin .7s linear infinite; }
+  .steps li.done { color: var(--fg); }
+  .steps li.done .st { background: var(--green-btn); border-color: var(--green-btn); }
+  .steps li.done .st svg { opacity: 1; }
+  .steps li span { flex: 1; }
+  .steps li time { font: 11.5px var(--mono); color: var(--fg-2); }
+  .canvas-wrap { display: flex; flex-direction: column; gap: 10px; }
+  .zcanvas { display: grid; grid-template-columns: repeat(12, 1fr); gap: 2px; aspect-ratio: 1; padding: 6px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); position: relative; overflow: hidden; }
+  .zcanvas i { display: block; border-radius: 2px; background: var(--px-n1); transition: background-color .35s ease; }
+  .zcanvas .scan { position: absolute; left: 0; right: 0; height: 2px; background: var(--blue); opacity: 0; top: 0; }
+  .zcanvas.gen .scan { opacity: .55; animation: scan 1.4s linear infinite; }
+  @keyframes scan { from { top: 0; } to { top: 100%; } }
+  .zmeta { display: flex; justify-content: space-between; font: 11.5px var(--mono); color: var(--fg-2); }
+  .zmeta b { color: var(--fg); font-weight: 500; }
+  .thumbs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+  .thumb { aspect-ratio: 1; border: 1px solid var(--line-2); border-radius: 5px; padding: 2px; display: grid; grid-template-columns: repeat(12, 1fr); background: var(--surface); opacity: .35; transition: opacity .4s, transform .4s; }
+  .thumb.on { opacity: 1; }
+  .thumb.pop { transform: scale(1.08); }
+  .thumb i { display: block; }
+
+  /* ClassKit */
+  .chat { padding: 18px; display: flex; flex-direction: column; gap: 14px; min-height: 384px; }
+  .msg-q { align-self: flex-end; max-width: 88%; background: var(--bg-3); border: 1px solid var(--line-2); border-radius: 12px 12px 4px 12px; padding: 9px 13px; font-size: 14px; color: var(--fg); min-height: 40px; }
+  .caret { display: inline-block; width: 7px; height: 15px; background: var(--fg); vertical-align: -2px; margin-left: 1px; animation: blink 1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+  .retr { border: 1px solid var(--line); border-radius: 8px; overflow: hidden; opacity: 0; transform: translateY(4px); transition: opacity .3s, transform .3s; }
+  .retr.on { opacity: 1; transform: none; }
+  .retr-head { display: flex; align-items: center; gap: 8px; padding: 8px 12px; font: 12px var(--mono); color: var(--fg-2); background: var(--bg-2); border-bottom: 1px solid var(--line-2); }
+  .retr-head .mini-spin { width: 11px; height: 11px; border: 1.5px solid var(--line); border-top-color: var(--blue); border-radius: 50%; animation: spin .7s linear infinite; }
+  .retr-head.done .mini-spin { display: none; }
+  .retr-head .okdot { display: none; width: 14px; height: 14px; border-radius: 50%; background: var(--green-btn); }
+  .retr-head.done .okdot { display: grid; place-items: center; }
+  .retr-head .okdot svg { width: 9px; height: 9px; fill: #fff; }
+  .doc { display: grid; grid-template-columns: 18px minmax(0, 1fr) 64px 34px; align-items: center; gap: 8px; padding: 7px 12px; font-size: 12.5px; border-top: 1px solid var(--line-2); opacity: 0; transition: opacity .3s; }
+  .doc:first-of-type { border-top: 0; }
+  .doc.on { opacity: 1; }
+  .doc .ix { font: 11px var(--mono); color: var(--blue); background: var(--blue-soft); border-radius: 4px; text-align: center; }
+  .doc .nm { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--fg); }
+  .doc .nm small { color: var(--fg-2); font-family: var(--mono); font-size: 11px; }
+  .doc .bar { height: 4px; border-radius: 2px; background: var(--line-2); overflow: hidden; }
+  .doc .bar i { display: block; height: 100%; width: 0; background: var(--green-btn); border-radius: 2px; transition: width .7s cubic-bezier(.2,.7,.2,1); }
+  .doc .sc { font: 11px var(--mono); color: var(--fg-2); text-align: right; }
+  .msg-a { display: flex; gap: 10px; align-items: flex-start; opacity: 0; transition: opacity .3s; }
+  .msg-a.on { opacity: 1; }
+  .msg-a .av { width: 26px; height: 26px; border-radius: 6px; background: var(--fg); color: var(--on-fg); font: 700 10px/26px var(--sans); text-align: center; flex: none; }
+  .msg-a .txt { font-size: 14px; line-height: 1.55; color: var(--fg); }
+  .msg-a .model { display: block; font: 11px var(--mono); color: var(--fg-2); margin-bottom: 3px; }
+  .cite { display: inline-block; font: 10.5px/16px var(--mono); color: var(--blue); background: var(--blue-soft); border-radius: 4px; padding: 0 4px; margin: 0 1px; vertical-align: 1px; }
+  .filepill { display: inline-flex; align-items: center; gap: 6px; margin-top: 8px; font: 12px var(--mono); border: 1px solid var(--line); border-radius: 6px; padding: 4px 8px; color: var(--fg); background: var(--bg-2); }
+  .filepill i { width: 8px; height: 10px; border-radius: 1px; background: #cf222e; display: block; }
+
+  .facts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+  .fact { font: 12.5px var(--mono); padding: 4px 10px; border-radius: 6px; border: 1px solid var(--line); background: var(--bg-2); color: var(--fg); }
+  .fact b { color: var(--green); font-weight: 500; }
+
+  @media (max-width: 1100px) {
+    .zbody { grid-template-columns: minmax(0, 1fr) 160px; gap: 14px; }
+  }
+  @media (max-width: 600px) {
+    .ai-cell .stage { padding: 12px; }
+    .win-bar { white-space: nowrap; gap: 8px; padding: 9px 12px; }
+    .win-bar .dots, #zRun, #ckCtx { display: none; }
+    .run-state { white-space: nowrap; }
+    .zbody { grid-template-columns: 1fr; padding: 14px; }
+    .canvas-wrap { max-width: 240px; width: 100%; margin: 0 auto; }
+    .chat { padding: 14px; min-height: 420px; }
+    .doc { grid-template-columns: 18px minmax(0, 1fr) 34px; }
+    .doc .bar { display: none; }
+  }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     .ticker .track { animation: none; }
@@ -302,6 +409,18 @@
   <symbol id="pause" viewBox="0 0 16 16"><path d="M4.5 2a.5.5 0 0 0-.5.5v11a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-11a.5.5 0 0 0-.5-.5Zm5 0a.5.5 0 0 0-.5.5v11a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-11a.5.5 0 0 0-.5-.5Z"/></symbol>
   <symbol id="play" viewBox="0 0 16 16"><path d="M4 2.5v11a.5.5 0 0 0 .77.42l8.5-5.5a.5.5 0 0 0 0-.84l-8.5-5.5A.5.5 0 0 0 4 2.5Z"/></symbol>
   <symbol id="download" viewBox="0 0 16 16"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Z"/><path d="M7.25 7.689V2a.75.75 0 0 1 1.5 0v5.689l1.97-1.969a.749.749 0 1 1 1.06 1.06l-3.25 3.25a.749.749 0 0 1-1.06 0L4.22 6.78a.749.749 0 1 1 1.06-1.06l1.97 1.969Z"/></symbol>
+  <symbol id="k-plug" viewBox="0 0 16 16"><path d="M5 1.75a.75.75 0 0 1 1.5 0V4h3V1.75a.75.75 0 0 1 1.5 0V4h.75a.75.75 0 0 1 .75.75V7a4.5 4.5 0 0 1-3.75 4.44v3.81a.75.75 0 0 1-1.5 0v-3.81A4.5 4.5 0 0 1 4 7V4.75A.75.75 0 0 1 4.75 4H5Zm.5 3.75V7a2.5 2.5 0 0 0 5 0V5.5Z"/></symbol>
+  <symbol id="k-cpu" viewBox="0 0 16 16"><path d="M6 0h1.5v2h1V0H10v2h1a3 3 0 0 1 3 3v1h2v1.5h-2v1h2V10h-2v1a3 3 0 0 1-3 3h-1v2H8.5v-2h-1v2H6v-2H5a3 3 0 0 1-3-3v-1H0V8.5h2v-1H0V6h2V5a3 3 0 0 1 3-3h1Zm-1 3.5A1.5 1.5 0 0 0 3.5 5v6A1.5 1.5 0 0 0 5 12.5h6a1.5 1.5 0 0 0 1.5-1.5V5A1.5 1.5 0 0 0 11 3.5Zm1 2.5h4v4H6Z"/></symbol>
+  <symbol id="k-search" viewBox="0 0 16 16"><path d="M10.68 11.74a6 6 0 1 1 1.06-1.06l3.04 3.04a.75.75 0 1 1-1.06 1.06ZM11.5 7a4.5 4.5 0 1 0-9 0 4.5 4.5 0 0 0 9 0Z"/></symbol>
+  <symbol id="k-agent" viewBox="0 0 16 16"><path d="M7.25 1.5a.75.75 0 0 1 1.5 0V3H11a3 3 0 0 1 3 3v5a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V6a3 3 0 0 1 3-3h2.25ZM5 4.5A1.5 1.5 0 0 0 3.5 6v5A1.5 1.5 0 0 0 5 12.5h6a1.5 1.5 0 0 0 1.5-1.5V6A1.5 1.5 0 0 0 11 4.5ZM6 7a1 1 0 1 1 0 2 1 1 0 0 1 0-2Zm4 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z"/></symbol>
+  <symbol id="k-route" viewBox="0 0 16 16"><path d="M3 1.5a2 2 0 0 1 .75 3.86V10.5a2 2 0 0 0 2 2h4.39a2 2 0 1 1 0 1.5H5.75a3.5 3.5 0 0 1-3.5-3.5V5.36A2 2 0 0 1 3 1.5Zm0 1.5a.5.5 0 1 0 0 1 .5.5 0 0 0 0-1Zm10 10a.5.5 0 1 0 0 1 .5.5 0 0 0 0-1ZM7 3.25h4.25a2.5 2.5 0 0 1 2.5 2.5v3.5a.75.75 0 0 1-1.5 0v-3.5a1 1 0 0 0-1-1H7a.75.75 0 0 1 0-1.5Z"/></symbol>
+  <symbol id="k-sparkle" viewBox="0 0 16 16"><path d="M7.53 1.28a.5.5 0 0 1 .94 0l1.2 3.27a2 2 0 0 0 1.18 1.18l3.27 1.2a.5.5 0 0 1 0 .94l-3.27 1.2a2 2 0 0 0-1.18 1.18l-1.2 3.27a.5.5 0 0 1-.94 0l-1.2-3.27a2 2 0 0 0-1.18-1.18l-3.27-1.2a.5.5 0 0 1 0-.94l3.27-1.2a2 2 0 0 0 1.18-1.18Z"/></symbol>
+  <symbol id="k-stack" viewBox="0 0 16 16"><path d="M7.66 1.08a.75.75 0 0 1 .68 0l6.5 3.25a.75.75 0 0 1 0 1.34l-6.5 3.25a.75.75 0 0 1-.68 0l-6.5-3.25a.75.75 0 0 1 0-1.34ZM3.43 5 8 7.29 12.57 5 8 2.71Zm-2.1 3.66a.75.75 0 0 1 1.01-.33L8 11.16l5.66-2.83a.75.75 0 1 1 .68 1.34l-6 3a.75.75 0 0 1-.68 0l-6-3a.75.75 0 0 1-.33-1.01Z"/></symbol>
+  <symbol id="k-chart" viewBox="0 0 16 16"><path d="M1.5 1.75a.75.75 0 0 0-1.5 0v12.5c0 .41.34.75.75.75h14.5a.75.75 0 0 0 0-1.5H1.5Zm13.28 2.53a.75.75 0 0 0-1.06-1.06L9.5 7.44 7.28 5.22a.75.75 0 0 0-1.06 0l-3.5 3.5a.75.75 0 1 0 1.06 1.06l2.97-2.97 2.22 2.22c.3.3.77.3 1.06 0Z"/></symbol>
+  <symbol id="k-phone" viewBox="0 0 16 16"><path d="M4.75 0h6.5C12.22 0 13 .78 13 1.75v12.5c0 .97-.78 1.75-1.75 1.75h-6.5C3.78 16 3 15.22 3 14.25V1.75C3 .78 3.78 0 4.75 0Zm0 1.5a.25.25 0 0 0-.25.25v12.5c0 .14.11.25.25.25h6.5a.25.25 0 0 0 .25-.25V1.75a.25.25 0 0 0-.25-.25ZM8 11.5a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z"/></symbol>
+  <symbol id="k-card" viewBox="0 0 16 16"><path d="M1.75 2.5h12.5c.97 0 1.75.78 1.75 1.75v7.5c0 .97-.78 1.75-1.75 1.75H1.75C.78 13.5 0 12.72 0 11.75v-7.5C0 3.28.78 2.5 1.75 2.5ZM1.5 7v4.75c0 .14.11.25.25.25h12.5a.25.25 0 0 0 .25-.25V7Zm13-1.5V4.25a.25.25 0 0 0-.25-.25H1.75a.25.25 0 0 0-.25.25V5.5ZM3 9.75A.75.75 0 0 1 3.75 9h2.5a.75.75 0 0 1 0 1.5h-2.5A.75.75 0 0 1 3 9.75Z"/></symbol>
+  <symbol id="k-shield" viewBox="0 0 16 16"><path d="M7.47.22a.75.75 0 0 1 1.06 0c1.6 1.42 3.4 2.03 5.72 2.03.41 0 .75.34.75.75v4.5c0 4.04-2.33 6.94-6.74 8.46a.75.75 0 0 1-.52 0C3.33 14.44 1 11.54 1 7.5V3c0-.41.34-.75.75-.75 2.32 0 4.12-.61 5.72-2.03ZM2.5 3.73V7.5c0 3.24 1.78 5.57 5.5 6.95 3.72-1.38 5.5-3.71 5.5-6.95V3.73A9.6 9.6 0 0 1 8 1.74a9.6 9.6 0 0 1-5.5 1.99Zm8.28 2.55a.75.75 0 0 1 0 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0l-1.75-1.75a.75.75 0 1 1 1.06-1.06L7 9l2.72-2.72a.75.75 0 0 1 1.06 0Z"/></symbol>
+  <symbol id="k-bank" viewBox="0 0 16 16"><path d="M7.66.58a.75.75 0 0 1 .68 0l7 3.5A.75.75 0 0 1 15 5.5H1a.75.75 0 0 1-.34-1.42ZM4.18 4h7.64L8 2.09ZM2.5 7.25a.75.75 0 0 1 1.5 0v4.25a.75.75 0 0 1-1.5 0Zm3.5 0a.75.75 0 0 1 1.5 0v4.25a.75.75 0 0 1-1.5 0Zm3.5 0a.75.75 0 0 1 1.5 0v4.25a.75.75 0 0 1-1.5 0Zm3.5 0a.75.75 0 0 1 1.5 0v4.25a.75.75 0 0 1-1.5 0ZM.75 13.5h14.5a.75.75 0 0 1 0 1.5H.75a.75.75 0 0 1 0-1.5Z"/></symbol>
 </svg>
 
 <!-- NAV -->
@@ -309,6 +428,7 @@
   <div class="bar">
     <a class="brand" href="#top"><i>AM</i>Ashutosh Mishra</a>
     <nav class="links" aria-label="Sections">
+      <a href="#ai">AI</a>
       <a href="#work">Work</a>
       <a href="#services">Services</a>
       <a href="#experience">Experience</a>
@@ -332,7 +452,7 @@
   <div class="frame">
     <section class="hero">
       <a class="pill" href="#contact"><span class="dot"></span>Available for freelance &amp; full-time work<span class="chev"><svg class="i" style="width:12px;height:12px"><use href="#chev"/></svg></span></a>
-      <h1>I build the software businesses run on</h1>
+      <h1>I build softwares companies rely on</h1>
       <p class="sub">Full stack engineer in Mumbai. ERPs, CRMs, full websites and AI products for clients — and production fintech systems serving 100K+ users.</p>
       <div class="cta-row">
         <div class="mailbox"><span>mashutoshh@gmail.com</span><a class="btn btn-green btn-lg" href="mailto:mashutoshh@gmail.com">Start a project</a></div>
@@ -352,7 +472,7 @@
       <div class="tick"><div class="t1"><span class="ico"><svg class="i"><use href="#push"/></svg></span>deployed <em>to</em> production</div><div class="t2">scorpionlogistics.qa <span>· full website</span></div></div>
       <div class="tick"><div class="t1"><span class="ico"><svg class="i"><use href="#merge"/></svg></span>launched <em>for</em> Trenfluenzy</div><div class="t2">trackflow <span>· campaign tracking CRM</span></div></div>
       <div class="tick stat"><b>1M+</b><small>API requests served every day</small></div>
-      <div class="tick"><div class="t1"><span class="ico"><svg class="i"><use href="#cpu"/></svg></span>AI pipeline <em>for</em> Zudio</div><div class="t2">generative images <span>· in production</span></div></div>
+      <div class="tick"><div class="t1"><span class="ico"><svg class="i"><use href="#cpu"/></svg></span>AI pipeline <em>for</em> <img class="zl" src="assets/zudio-logo.png" alt="Zudio"></div><div class="t2">generative images <span>· in production</span></div></div>
       <div class="tick"><div class="t1"><span class="ico"><svg class="i"><use href="#push"/></svg></span>deployed <em>for</em> PGE Industries</div><div class="t2">pilot-gasket <span>· full website</span></div></div>
       <div class="tick stat"><b>54%</b><small>revenue growth after launch</small></div>
       <div class="tick"><div class="t1"><span class="ico"><svg class="i"><use href="#cpu"/></svg></span>RAG platform <em>built</em></div><div class="t2">classkit <span>· self-hosted LLM</span></div></div>
@@ -361,10 +481,75 @@
     <button class="pause" id="pauseBtn" aria-label="Pause ticker"><svg class="i"><use href="#pause"/></svg></button>
   </div>
 
+  <!-- AI WORK -->
+  <div class="frame" id="ai">
+    <div class="sec-title">
+      <span class="eyebrow">01 / ai in production</span>
+      <h2>AI that ships, not demos</h2>
+      <p>Generative image pipelines and retrieval-augmented LLMs, running for real users.</p>
+    </div>
+
+    <div class="pgrid band">
+      <article class="pcell ai-cell">
+        <div class="stage">
+          <div class="win" id="zudio">
+            <div class="win-bar"><span class="dots"><i></i><i></i><i></i></span><img class="zl" src="assets/zudio-logo.png" alt="Zudio"><b>image-pipeline</b><span id="zRun">run #1</span><span class="sp"></span><span class="run-state" id="zState"><span class="spin"></span><span id="zStateTxt">Running</span></span></div>
+            <div class="zbody">
+              <div>
+                <div class="prompt" id="zPrompt">prompt: <b>…</b></div>
+                <ul class="steps" id="zSteps">
+                  <li><span class="st"><svg viewBox="0 0 16 16"><use href="#check"/></svg></span><span>Request received</span><time></time></li>
+                  <li><span class="st"><svg viewBox="0 0 16 16"><use href="#check"/></svg></span><span>Prompt &amp; brand style built</span><time></time></li>
+                  <li><span class="st"><svg viewBox="0 0 16 16"><use href="#check"/></svg></span><span>Generating image</span><time></time></li>
+                  <li><span class="st"><svg viewBox="0 0 16 16"><use href="#check"/></svg></span><span>Upscale &amp; quality check</span><time></time></li>
+                  <li><span class="st"><svg viewBox="0 0 16 16"><use href="#check"/></svg></span><span>Delivered to product</span><time></time></li>
+                </ul>
+              </div>
+              <div class="canvas-wrap">
+                <div class="zcanvas" id="zCanvas"><span class="scan"></span></div>
+                <div class="zmeta"><span>denoise</span><b id="zPct">0%</b></div>
+                <div class="thumbs" id="zThumbs"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="pinfo">
+          <div class="client-logo"><img src="assets/zudio-logo.png" alt="Zudio" width="109" height="22"><span>client</span></div>
+          <h3>Zudio — generative AI image pipeline</h3>
+          <div class="who">Retail · fashion · built at BizPay</div>
+          <p>A production pipeline that connects generative AI models straight into Zudio's client-facing product. A request comes in, a prompt is assembled with the brand's style, the model generates the image, it's upscaled and checked, and the finished visual is delivered back to the product — dynamically and at scale, instead of being made by hand.</p>
+          <div class="facts"><span class="fact"><b>●</b> live in production</span><span class="fact">generative models</span><span class="fact">Google AI + 3rd-party LLMs</span><span class="fact"><img src="https://cdn.jsdelivr.net/npm/devicon@2.16.0/icons/python/python-original.svg" alt="" width="13" height="13" style="vertical-align:-2px;margin-right:5px">Python</span></div>
+        </div>
+      </article>
+
+      <article class="pcell ai-cell">
+        <div class="stage">
+          <div class="win" id="classkit">
+            <div class="win-bar"><span class="dots"><i></i><i></i><i></i></span><b>classkit</b><span id="ckCtx">grade 9 · biology</span><span class="sp"></span><span class="run-state done"><span class="spin"></span>self-hosted</span></div>
+            <div class="chat">
+              <div class="msg-q" id="ckQ"><span class="caret"></span></div>
+              <div class="retr" id="ckR">
+                <div class="retr-head" id="ckRH"><span class="mini-spin"></span><span class="okdot"><svg viewBox="0 0 16 16"><use href="#check"/></svg></span><span id="ckRT">searching school documents…</span></div>
+                <div id="ckDocs"></div>
+              </div>
+              <div class="msg-a" id="ckA"><span class="av">CK</span><div class="txt"><span class="model">qwen-2.5-72b · grounded answer</span><span id="ckAT"></span></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="pinfo">
+          <h3>ClassKit — AI learning platform for schools</h3>
+          <div class="who">EdTech · own product · self-hosted</div>
+          <p>Schools upload their own textbooks, notes and slides; students and teachers ask questions and get answers grounded in that material, with sources. A hierarchical RAG pipeline (Docling + PageIndex) finds the right pages, a self-hosted Qwen 2.5 72B writes the answer, and a pluggable agent system generates quizzes, PDFs and PowerPoints. Data never leaves the school's own servers.</p>
+          <div class="facts"><span class="fact"><b>●</b> 72B self-hosted LLM</span><span class="fact">hierarchical RAG</span><span class="fact">AI agents</span><span class="fact"><img src="https://cdn.jsdelivr.net/npm/devicon@2.16.0/icons/django/django-plain.svg" alt="" width="13" height="13" class="inv" style="vertical-align:-2px;margin-right:5px">Django · <img src="https://cdn.jsdelivr.net/npm/devicon@2.16.0/icons/postgresql/postgresql-original.svg" alt="" width="13" height="13" style="vertical-align:-2px;margin:0 5px 0 2px">PostgreSQL</span></div>
+        </div>
+      </article>
+    </div>
+  </div>
+
   <!-- CLIENT WORK -->
   <div class="frame" id="work">
     <div class="sec-title">
-      <span class="eyebrow">01 / client work</span>
+      <span class="eyebrow">02 / client work</span>
       <h2>Built for real businesses</h2>
       <p>ERPs, CRMs and websites I've designed, built and shipped end to end — from database to deployment.</p>
     </div>
@@ -455,44 +640,6 @@
         </div>
       </article>
 
-      <!-- Zudio -->
-      <article class="pcell">
-        <div class="stage"><div class="mock">
-          <h3>Image generation pipeline <span>#ai</span></h3>
-          <div class="meta"><span class="state"><svg class="i" style="width:12px;height:12px"><use href="#check"/></svg>In production</span><span>for</span><span class="code">zudio</span><span>via BizPay</span></div>
-          <div class="checks">
-            <div class="head"><span class="ok"><svg class="i"><use href="#check"/></svg></span>Pipeline stages</div>
-            <div class="row"><span class="ok"><svg class="i"><use href="#check"/></svg></span><div>Request intake<small>from the client-facing product</small></div><span class="ready">Ready</span></div>
-            <div class="row"><span class="ok"><svg class="i"><use href="#check"/></svg></span><div>Generative models<small>image generation</small></div><span class="ready">Ready</span></div>
-            <div class="row"><span class="ok"><svg class="i"><use href="#check"/></svg></span><div>Delivery at scale<small>dynamic visual content</small></div><span class="ready">Ready</span></div>
-          </div>
-        </div></div>
-        <div class="pinfo">
-          <h3>Zudio — generative AI images</h3>
-          <div class="who">Retail · built at BizPay</div>
-          <p>A production pipeline that connects generative AI models to Zudio's client-facing product, so visual content is created dynamically and at scale instead of by hand.</p>
-        </div>
-      </article>
-
-      <!-- ClassKit -->
-      <article class="pcell">
-        <div class="stage" style="--accent:#0969da"><div class="mock" style="--accent:#0969da">
-          <h3>ClassKit <span>#ai #rag</span></h3>
-          <div class="meta"><span class="state blue"><svg class="i" style="width:12px;height:12px"><use href="#check"/></svg>Demo live</span><span>self-hosted</span><span class="code">qwen-2.5-72b</span></div>
-          <div class="checks">
-            <div class="head"><span class="ok"><svg class="i"><use href="#check"/></svg></span>Architecture</div>
-            <div class="row"><span class="ok"><svg class="i"><use href="#check"/></svg></span><div>Hierarchical RAG<small>Docling · PageIndex</small></div><span class="ready">Ready</span></div>
-            <div class="row"><span class="ok"><svg class="i"><use href="#check"/></svg></span><div>Agent orchestrator<small>pluggable agent registry</small></div><span class="ready">Ready</span></div>
-            <div class="row"><span class="ok"><svg class="i"><use href="#check"/></svg></span><div>Role-based access<small>admins · teachers · students</small></div><span class="ready">Ready</span></div>
-            <div class="row"><span class="ok"><svg class="i"><use href="#check"/></svg></span><div>Auto-generated docs<small>PDF · PowerPoint</small></div><span class="ready">Ready</span></div>
-          </div>
-        </div></div>
-        <div class="pinfo">
-          <h3>ClassKit — AI learning platform</h3>
-          <div class="who">EdTech · own product</div>
-          <p>A self-hosted platform where schools upload their own material and get accurate AI answers grounded in it, without data leaving their infrastructure. Built on Django and PostgreSQL with a self-hosted Qwen 2.5 72B via LiteLLM / NVIDIA NIM — and most of the work went into making retrieval reliable: fixing chunking, metadata, table extraction and hallucinations.</p>
-        </div>
-      </article>
     </div>
 
     <div class="more">
@@ -504,7 +651,7 @@
   <!-- SERVICES -->
   <div class="frame" id="services">
     <div class="sec-title">
-      <span class="eyebrow">02 / services</span>
+      <span class="eyebrow">03 / services</span>
       <h2>One engineer, the whole stack</h2>
       <p>From the website your customers see to the systems your team uses every day.</p>
     </div>
@@ -525,7 +672,7 @@
   <!-- EXPERIENCE -->
   <div class="frame" id="experience">
     <div class="sec-title">
-      <span class="eyebrow">03 / experience</span>
+      <span class="eyebrow">04 / experience</span>
       <h2>Where I've worked</h2>
       <p>3+ years building production fintech systems.</p>
     </div>
@@ -586,17 +733,17 @@
   <!-- SKILLS -->
   <div class="frame" id="skills">
     <div class="sec-title">
-      <span class="eyebrow">04 / toolkit</span>
+      <span class="eyebrow">05 / toolkit</span>
       <h2>What I work with</h2>
     </div>
     <dl class="skills" style="margin:0">
-      <div class="sk"><dt>Languages</dt><dd><span class="chip">Python</span><span class="chip">TypeScript</span><span class="chip">JavaScript</span><span class="chip">PHP</span></dd></div>
-      <div class="sk"><dt>Backend</dt><dd><span class="chip">FastAPI</span><span class="chip">Django</span><span class="chip">Node.js</span><span class="chip">Express</span><span class="chip">Laravel</span><span class="chip">GraphQL</span><span class="chip">WebSockets</span></dd></div>
-      <div class="sk"><dt>Frontend &amp; mobile</dt><dd><span class="chip">React</span><span class="chip">Next.js</span><span class="chip">React Native</span><span class="chip">Tailwind CSS</span><span class="chip">UI/UX</span></dd></div>
-      <div class="sk"><dt>AI</dt><dd><span class="chip">LLMs</span><span class="chip">RAG</span><span class="chip">AI agents</span><span class="chip">LiteLLM</span><span class="chip">Generative AI</span></dd></div>
-      <div class="sk"><dt>Data</dt><dd><span class="chip">PostgreSQL</span><span class="chip">MySQL</span><span class="chip">MongoDB</span><span class="chip">Redis</span></dd></div>
-      <div class="sk"><dt>Cloud &amp; DevOps</dt><dd><span class="chip">AWS</span><span class="chip">Docker</span><span class="chip">Vercel</span><span class="chip">Microservices</span></dd></div>
-      <div class="sk"><dt>Fintech</dt><dd><span class="chip">MetaTrader</span><span class="chip">UPI</span><span class="chip">Payment gateways</span><span class="chip">KYC</span><span class="chip">Bank integrations</span></dd></div>
+      <div class="sk"><dt>Languages</dt><dd><span class="chip"><img src="https://cdn.jsdelivr.net/npm/devicon@2.16.0/icons/python/python-original.svg" alt="" width="16" height="16" loading="lazy">Python</span><span class="chip"><img src="https://cdn.jsdelivr.net/npm/devicon@2.16.0/icons/typescript/typescript-original.svg" alt="" width="16" height="16" loading="lazy">TypeScript</span><span class="chip"><img src="https://cdn.jsdelivr.net/npm/devicon@2.16.0/icons/javascript/javascript-original.svg" alt="" width="16" height="16" loading="lazy">JavaScript</span><span class="chip"><img src="https://cdn.jsdelivr.net/npm/devicon@2.16.0/icons/php/php-original.svg" alt="" width="16" height="16" loading="lazy">PHP</span></dd></div>
+      <div class="sk"><dt>Backend</dt><dd><span class="chip"><img src="https://cdn.jsdelivr.net/npm/devicon@2.16.0/icons/fastapi/fastapi-original.svg" alt="" width="16" height="16" loading="lazy">FastAPI</span><span class="chip"><img src="https://cdn.jsdelivr.net/npm/devicon@2.16.0/icons/django/django-plain.svg" alt="" width="16" height="16" loading="lazy" class="inv">Django</span><span class="chip"><img src="https://cdn.jsdelivr.net/npm/devicon@2.16.0/icons/nodejs/nodejs-original.svg" alt="" width="16" height="16" loading="lazy">Node.js</span><span class="chip"><img src="https://cdn.jsdelivr.net/npm/devicon@2.16.0/icons/express/express-original.svg" alt="" width="16" height="16" loading="lazy" class="inv">Express</span><span class="chip"><img src="https://cdn.jsdelivr.net/npm/devicon@2.16.0/icons/laravel/laravel-original.svg" alt="" width="16" height="16" loading="lazy">Laravel</span><span class="chip"><img src="https://cdn.jsdelivr.net/npm/devicon@2.16.0/icons/graphql/graphql-plain.svg" alt="" width="16" height="16" loading="lazy">GraphQL</span><span class="chip"><svg class="ci" style="color:#0969da"><use href="#k-plug"/></svg>WebSockets</span></dd></div>
+      <div class="sk"><dt>Frontend &amp; mobile</dt><dd><span class="chip"><img src="https://cdn.jsdelivr.net/npm/devicon@2.16.0/icons/react/react-original.svg" alt="" width="16" height="16" loading="lazy">React</span><span class="chip"><img src="https://cdn.jsdelivr.net/npm/devicon@2.16.0/icons/nextjs/nextjs-original.svg" alt="" width="16" height="16" loading="lazy" class="inv">Next.js</span><span class="chip"><img src="https://cdn.jsdelivr.net/npm/devicon@2.16.0/icons/react/react-original.svg" alt="" width="16" height="16" loading="lazy">React Native</span><span class="chip"><img src="https://cdn.jsdelivr.net/npm/devicon@2.16.0/icons/tailwindcss/tailwindcss-original.svg" alt="" width="16" height="16" loading="lazy">Tailwind CSS</span><span class="chip"><img src="https://cdn.jsdelivr.net/npm/devicon@2.16.0/icons/figma/figma-original.svg" alt="" width="16" height="16" loading="lazy">UI/UX</span></dd></div>
+      <div class="sk"><dt>AI</dt><dd><span class="chip"><svg class="ci" style="color:#8250df"><use href="#k-cpu"/></svg>LLMs</span><span class="chip"><svg class="ci" style="color:#0969da"><use href="#k-search"/></svg>RAG</span><span class="chip"><svg class="ci" style="color:#1a7f37"><use href="#k-agent"/></svg>AI agents</span><span class="chip"><svg class="ci" style="color:#bf3989"><use href="#k-route"/></svg>LiteLLM</span><span class="chip"><svg class="ci" style="color:#9a6700"><use href="#k-sparkle"/></svg>Generative AI</span></dd></div>
+      <div class="sk"><dt>Data</dt><dd><span class="chip"><img src="https://cdn.jsdelivr.net/npm/devicon@2.16.0/icons/postgresql/postgresql-original.svg" alt="" width="16" height="16" loading="lazy">PostgreSQL</span><span class="chip"><img src="https://cdn.jsdelivr.net/npm/devicon@2.16.0/icons/mysql/mysql-original.svg" alt="" width="16" height="16" loading="lazy" class="lift">MySQL</span><span class="chip"><img src="https://cdn.jsdelivr.net/npm/devicon@2.16.0/icons/mongodb/mongodb-original.svg" alt="" width="16" height="16" loading="lazy">MongoDB</span><span class="chip"><img src="https://cdn.jsdelivr.net/npm/devicon@2.16.0/icons/redis/redis-original.svg" alt="" width="16" height="16" loading="lazy">Redis</span></dd></div>
+      <div class="sk"><dt>Cloud &amp; DevOps</dt><dd><span class="chip"><img src="https://cdn.jsdelivr.net/npm/devicon@2.16.0/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" alt="" width="16" height="16" loading="lazy" class="onlight">AWS</span><span class="chip"><img src="https://cdn.jsdelivr.net/npm/devicon@2.16.0/icons/docker/docker-original.svg" alt="" width="16" height="16" loading="lazy">Docker</span><span class="chip"><img src="https://cdn.jsdelivr.net/npm/devicon@2.16.0/icons/vercel/vercel-original.svg" alt="" width="16" height="16" loading="lazy" class="inv">Vercel</span><span class="chip"><svg class="ci" style="color:#0969da"><use href="#k-stack"/></svg>Microservices</span></dd></div>
+      <div class="sk"><dt>Fintech</dt><dd><span class="chip"><svg class="ci" style="color:#1a7f37"><use href="#k-chart"/></svg>MetaTrader</span><span class="chip"><svg class="ci" style="color:#8250df"><use href="#k-phone"/></svg>UPI</span><span class="chip"><svg class="ci" style="color:#0969da"><use href="#k-card"/></svg>Payment gateways</span><span class="chip"><svg class="ci" style="color:#1a7f37"><use href="#k-shield"/></svg>KYC</span><span class="chip"><svg class="ci" style="color:#9a6700"><use href="#k-bank"/></svg>Bank integrations</span></dd></div>
       <div class="sk"><dt>Education</dt><dd style="font-size:15px">B.Sc. Computer Science, Nagindas Khandwala College, Mumbai — 9.40 / 10 · 2020–23</dd></div>
     </dl>
   </div>
@@ -605,7 +752,7 @@
   <div class="stripe" aria-hidden="true" style="margin-top:96px"><i></i><i></i><i></i><i></i><i></i><i></i></div>
   <div class="frame" id="contact">
     <section class="closing">
-      <span class="eyebrow">05 / contact</span>
+      <span class="eyebrow">06 / contact</span>
       <h2>Whatever your business needs built, I can build it.</h2>
       <div class="cta-row">
         <a class="btn btn-green btn-lg" href="mailto:mashutoshh@gmail.com">Email me</a>
@@ -672,6 +819,163 @@
     window.rebuildPixels = build;
     var t;
     window.addEventListener('resize', function () { clearTimeout(t); t = setTimeout(build, 150); });
+  })();
+
+  // ---------- Zudio: pixel image generation loop ----------
+  (function () {
+    var root = document.getElementById('zudio'); if (!root) return;
+    var canvas = document.getElementById('zCanvas'), stepsEl = document.querySelectorAll('#zSteps li');
+    var promptEl = document.getElementById('zPrompt'), pctEl = document.getElementById('zPct');
+    var stateEl = document.getElementById('zState'), stateTxt = document.getElementById('zStateTxt');
+    var runEl = document.getElementById('zRun'), thumbsEl = document.getElementById('zThumbs');
+    var SHAPES = {
+      tee: ['............','...xx..xx...','.xxxxxxxxxx.','xxxxxxxxxxxx','xxxxxxxxxxxx','xx.xxxxxx.xx','...xxxxxx...','...dddddd...','...xxxxxx...','...xxxxxx...','...xxxxxx...','............'],
+      dress: ['............','....x..x....','....xxxx....','....xxxx....','...xddddx...','...xxxxxx...','..xxxxxxxx..','..xxxxxxxx..','.xxxxxxxxxx.','.xxxxxxxxxx.','xxxxxxxxxxxx','............'],
+      cap: ['............','............','............','....xxxx....','...xxxxxx...','..xxxxxxxx..','..xxxxxxxx..','..dddddddd..','..dddddddddd.','............','............','............'],
+      bag: ['............','....xxxx....','...x....x...','...x....x...','.xxxxxxxxxx.','.xxxxxxxxxx.','.xxxxddxxxx.','.xxxxddxxxx.','.xxxxxxxxxx.','.xxxxxxxxxx.','.xxxxxxxxxx.','............']
+    };
+    var ITEMS = [
+      { shape: 'tee', x: '#1a7f37', d: '#aceebb', p: 'oversized cotton tee, forest green, white chest stripe' },
+      { shape: 'dress', x: '#bf3989', d: '#ff80d2', p: 'summer midi dress, berry pink, studio lighting' },
+      { shape: 'cap', x: '#0969da', d: '#54aeff', p: 'baseball cap, cobalt blue, clean product shot' },
+      { shape: 'bag', x: '#8250df', d: '#c297ff', p: 'everyday tote bag, violet, flat lay' }
+    ];
+    var cells = [], i;
+    for (i = 0; i < 144; i++) { var c = document.createElement('i'); canvas.appendChild(c); cells.push(c); }
+    var thumbs = [];
+    for (i = 0; i < 4; i++) { var t = document.createElement('div'); t.className = 'thumb'; for (var k = 0; k < 144; k++) t.appendChild(document.createElement('i')); thumbsEl.appendChild(t); thumbs.push(t); }
+    function target(item, n) {
+      var ch = (SHAPES[item.shape][Math.floor(n / 12)] || '')[n % 12];
+      return ch === 'x' ? item.x : ch === 'd' ? item.d : 'var(--px-bg)';
+    }
+    var noise = ['var(--px-n1)', 'var(--px-n2)', 'var(--px-n3)', 'var(--px-bg)'];
+    function noiseAll() { cells.forEach(function (c) { c.style.background = noise[(Math.random() * 4) | 0]; }); }
+    var timers = [], idx = 0, run = 1, active = false, reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function later(fn, ms) { timers.push(setTimeout(fn, ms)); }
+    function clear() { timers.forEach(clearTimeout); timers = []; }
+    function setStep(n, cls, time) { var li = stepsEl[n]; li.className = cls; if (time) li.querySelector('time').textContent = time; }
+    function fillThumb(t, item) { var is = t.children; for (var n = 0; n < 144; n++) is[n].style.background = target(item, n); t.classList.add('on'); }
+    function cycle() {
+      clear();
+      var item = ITEMS[idx % ITEMS.length];
+      runEl.textContent = 'run #' + (1280 + run);
+      stepsEl.forEach(function (li) { li.className = ''; li.querySelector('time').textContent = ''; });
+      stateEl.classList.remove('done'); stateTxt.textContent = 'Running';
+      promptEl.innerHTML = 'prompt: <b>…</b>'; pctEl.textContent = '0%';
+      noiseAll();
+      setStep(0, 'run');
+      later(function () { setStep(0, 'done', '0.1s'); promptEl.innerHTML = 'prompt: <b>“' + item.p + '”</b>'; setStep(1, 'run'); }, 500);
+      later(function () { setStep(1, 'done', '0.3s'); setStep(2, 'run'); canvas.classList.add('gen'); }, 1300);
+      var order = cells.map(function (_, n) { return n; }).sort(function () { return Math.random() - .5; });
+      var revealed = 0, ticks = 22;
+      for (var s = 1; s <= ticks; s++) (function (s) {
+        later(function () {
+          var upto = Math.round(144 * s / ticks);
+          for (; revealed < upto; revealed++) cells[order[revealed]].style.background = target(item, order[revealed]);
+          for (var r = revealed; r < 144; r += 3) cells[order[r]].style.background = noise[(Math.random() * 4) | 0];
+          pctEl.textContent = Math.round(100 * s / ticks) + '%';
+        }, 1300 + s * 120);
+      })(s);
+      later(function () { canvas.classList.remove('gen'); setStep(2, 'done', '2.6s'); setStep(3, 'run'); }, 1300 + ticks * 120 + 150);
+      later(function () { setStep(3, 'done', '0.4s'); setStep(4, 'run'); }, 1300 + ticks * 120 + 900);
+      later(function () {
+        setStep(4, 'done', '0.1s'); stateEl.classList.add('done'); stateTxt.textContent = 'Completed';
+        var t = thumbs[idx % 4]; fillThumb(t, item); t.classList.add('pop'); setTimeout(function () { t.classList.remove('pop'); }, 400);
+      }, 1300 + ticks * 120 + 1400);
+      later(function () { idx++; run++; if (active) cycle(); }, 1300 + ticks * 120 + 3600);
+    }
+    function showStatic() {
+      var item = ITEMS[0];
+      cells.forEach(function (c, n) { c.style.background = target(item, n); });
+      ITEMS.forEach(function (it, n) { fillThumb(thumbs[n], it); });
+      stepsEl.forEach(function (li) { li.className = 'done'; });
+      promptEl.innerHTML = 'prompt: <b>“' + item.p + '”</b>'; pctEl.textContent = '100%';
+      stateEl.classList.add('done'); stateTxt.textContent = 'Completed';
+    }
+    if (reduced || !('IntersectionObserver' in window)) { showStatic(); return; }
+    noiseAll();
+    new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (e.isIntersecting && !active) { active = true; cycle(); }
+        else if (!e.isIntersecting && active) { active = false; clear(); }
+      });
+    }, { threshold: 0.25 }).observe(root);
+  })();
+
+  // ---------- ClassKit: RAG chat loop ----------
+  (function () {
+    var root = document.getElementById('classkit'); if (!root) return;
+    var qEl = document.getElementById('ckQ'), rEl = document.getElementById('ckR'), rh = document.getElementById('ckRH');
+    var rt = document.getElementById('ckRT'), docsEl = document.getElementById('ckDocs');
+    var aEl = document.getElementById('ckA'), at = document.getElementById('ckAT'), ctx = document.getElementById('ckCtx');
+    var QA = [
+      { ctx: 'grade 9 · biology', q: 'How does photosynthesis fit into the carbon cycle?',
+        docs: [['Biology_Grade9.pdf', 'p.42', .94], ['Ecosystems_Notes.pptx', 'slide 7', .88], ['Chapter4_Environment.pdf', 'p.13', .79]],
+        a: 'Plants take carbon dioxide from the air and store the carbon in glucose during photosynthesis [1]. When living things respire or decompose, that carbon is released back into the atmosphere, which closes the loop [2].' },
+      { ctx: 'grade 10 · history', q: 'Summarise the causes of the French Revolution for revision.',
+        docs: [['History_Class10.pdf', 'p.88', .91], ['Unit2_Revolutions.pptx', 'slide 4', .86], ['Revision_Guide.pdf', 'p.5', .74]],
+        a: 'Three causes stand out: a state deep in debt after years of war, a tax system that spared the clergy and nobility [1], and Enlightenment ideas that challenged absolute monarchy [2].' },
+      { ctx: 'grade 6 · maths', q: 'Make a 5-question quiz on adding fractions.',
+        docs: [['Maths_Grade6.pdf', 'p.21', .93], ['Fractions_Worksheet.pdf', 'p.2', .87]],
+        a: 'Done: 5 questions from Chapter 3, from like denominators up to mixed numbers, with an answer key for the teacher [1].', file: 'Fractions_Quiz.pdf' }
+    ];
+    var timers = [], idx = 0, active = false, reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function later(fn, ms) { timers.push(setTimeout(fn, ms)); }
+    function clear() { timers.forEach(clearTimeout); timers = []; }
+    function esc(t) { return t.replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
+    function fmt(t) { return esc(t).replace(/\[(\d)\]/g, '<span class="cite">$1</span>'); }
+    function docRow(d, n) {
+      return '<div class="doc"><span class="ix">' + (n + 1) + '</span><span class="nm">' + d[0] + ' <small>' + d[1] + '</small></span><span class="bar"><i data-w="' + Math.round(d[2] * 100) + '"></i></span><span class="sc">' + d[2].toFixed(2) + '</span></div>';
+    }
+    function render(item, full) {
+      ctx.textContent = item.ctx;
+      docsEl.innerHTML = item.docs.map(docRow).join('');
+      if (full) {
+        qEl.textContent = item.q; rEl.classList.add('on'); rh.classList.add('done');
+        rt.textContent = 'retrieved ' + item.docs.length + ' passages';
+        docsEl.querySelectorAll('.doc').forEach(function (d) { d.classList.add('on'); var b = d.querySelector('.bar i'); b.style.width = b.dataset.w + '%'; });
+        aEl.classList.add('on'); at.innerHTML = fmt(item.a) + (item.file ? '<br><span class="filepill"><i></i>' + item.file + '</span>' : '');
+      }
+    }
+    function cycle() {
+      clear();
+      var item = QA[idx % QA.length], t = 0;
+      render(item, false);
+      qEl.innerHTML = '<span class="caret"></span>';
+      rEl.classList.remove('on'); rh.classList.remove('done'); rt.textContent = 'searching school documents…';
+      aEl.classList.remove('on'); at.innerHTML = '';
+      // type question
+      item.q.split('').forEach(function (ch, n) {
+        later(function () { qEl.innerHTML = esc(item.q.slice(0, n + 1)) + '<span class="caret"></span>'; }, 300 + n * 32);
+      });
+      t = 300 + item.q.length * 32 + 350;
+      later(function () { qEl.textContent = item.q; rEl.classList.add('on'); }, t);
+      var rows;
+      item.docs.forEach(function (_, n) {
+        later(function () {
+          rows = docsEl.querySelectorAll('.doc');
+          var d = rows[n]; d.classList.add('on');
+          requestAnimationFrame(function () { var b = d.querySelector('.bar i'); b.style.width = b.dataset.w + '%'; });
+        }, t + 450 + n * 420);
+      });
+      t += 450 + item.docs.length * 420 + 300;
+      later(function () { rh.classList.add('done'); rt.textContent = 'retrieved ' + item.docs.length + ' passages · ranked'; aEl.classList.add('on'); }, t);
+      var words = item.a.split(' ');
+      words.forEach(function (w, n) {
+        later(function () { at.innerHTML = fmt(words.slice(0, n + 1).join(' ')) + '<span class="caret"></span>'; }, t + 250 + n * 55);
+      });
+      t += 250 + words.length * 55;
+      later(function () { at.innerHTML = fmt(item.a) + (item.file ? '<br><span class="filepill"><i></i>' + item.file + '</span>' : ''); }, t + 50);
+      later(function () { idx++; if (active) cycle(); }, t + 3800);
+    }
+    if (reduced || !('IntersectionObserver' in window)) { render(QA[0], true); return; }
+    render(QA[0], false);
+    new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (e.isIntersecting && !active) { active = true; cycle(); }
+        else if (!e.isIntersecting && active) { active = false; clear(); }
+      });
+    }, { threshold: 0.25 }).observe(root);
   })();
 
   // Theme switch
