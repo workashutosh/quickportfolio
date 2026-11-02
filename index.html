@@ -1,0 +1,643 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ashutosh Mishra · Full Stack Engineer</title>
+<meta name="description" content="Ashutosh Mishra — full stack engineer in Mumbai building ERPs, CRMs, websites, fintech platforms and AI products.">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%231f2328'/><text x='16' y='21' font-family='Arial,sans-serif' font-weight='700' font-size='13' fill='%23fff' text-anchor='middle'>AM</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mona+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #ffffff;
+    --bg-2: #f6f8fa;
+    --bg-3: #eff2f5;
+    --fg: #1f2328;
+    --fg-2: #59636e;
+    --line: #d1d9e0;
+    --line-2: #e6eaef;
+    --green: #1a7f37;
+    --green-btn: #1f883d;
+    --green-btn-h: #1c8139;
+    --green-soft: #dafbe1;
+    --blue: #0969da;
+    --blue-soft: #ddf4ff;
+    --purple: #c297ff;
+    --pink: #ff80d2;
+    --sans: "Mona Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    --frame: 1280px;
+    --pad: 48px;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: 72px; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.5 var(--sans); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  a { color: inherit; text-decoration: none; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; border-radius: 6px; }
+  h1, h2, h3, h4, p { margin: 0; }
+  svg.i { width: 16px; height: 16px; fill: currentColor; flex: none; }
+
+  /* Frame: the centred column with vertical guide lines */
+  .frame { max-width: var(--frame); margin: 0 auto; border-left: 1px solid var(--line-2); border-right: 1px solid var(--line-2); }
+  .band { border-top: 1px solid var(--line-2); }
+  .inner { padding: 0 var(--pad); }
+
+  /* Buttons */
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 40px; padding: 0 18px; font: 600 15px/1 var(--sans); border-radius: 6px; border: 1px solid var(--line); background: var(--bg-3); color: var(--fg); white-space: nowrap; cursor: pointer; transition: background .15s, border-color .15s; }
+  .btn:hover { background: #e6eaef; border-color: #c4ccd5; }
+  .btn-dark { background: var(--fg); color: #fff; border-color: var(--fg); }
+  .btn-dark:hover { background: #32383f; border-color: #32383f; }
+  .btn-green { background: var(--green-btn); color: #fff; border-color: rgba(31,35,40,.15); }
+  .btn-green:hover { background: var(--green-btn-h); border-color: rgba(31,35,40,.15); }
+  .btn-lg { height: 48px; padding: 0 22px; font-size: 17px; }
+  .btn-sm { height: 34px; padding: 0 12px; font-size: 14px; }
+
+  /* Nav */
+  .nav { position: sticky; top: 0; z-index: 20; background: rgba(255,255,255,.96); border-bottom: 1px solid var(--line-2); backdrop-filter: saturate(180%) blur(8px); }
+  .nav .bar { max-width: var(--frame); margin: 0 auto; display: flex; align-items: center; gap: 24px; height: 68px; padding: 0 var(--pad); }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 16px; }
+  .brand i { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: var(--fg); color: #fff; font: 700 12px/1 var(--sans); font-style: normal; letter-spacing: .02em; }
+  .links { display: flex; gap: 24px; font-size: 15px; font-weight: 500; }
+  .links a:hover { color: var(--fg-2); }
+  .nav .sp { flex: 1; }
+  .nav .right { display: flex; align-items: center; gap: 16px; font-size: 15px; font-weight: 500; }
+
+  /* Hero */
+  .hero { text-align: center; padding: 72px var(--pad) 56px; position: relative; }
+  .pill { display: inline-flex; align-items: center; gap: 10px; padding: 6px 8px 6px 14px; border: 1px solid var(--line); border-radius: 999px; background: var(--bg-2); font-size: 15px; font-weight: 500; }
+  .pill .dot { width: 8px; height: 8px; border-radius: 50%; background: #2da44e; box-shadow: 0 0 0 3px var(--green-soft); }
+  .pill .chev { display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; border: 1px solid var(--line); background: #fff; }
+  .hero h1 { font-size: clamp(40px, 6.6vw, 76px); line-height: 1.04; letter-spacing: -0.035em; font-weight: 600; margin: 28px auto 20px; max-width: 13em; }
+  .hero .sub { font-size: clamp(17px, 1.8vw, 20px); color: var(--fg-2); max-width: 40em; margin: 0 auto 36px; line-height: 1.5; }
+  .cta-row { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; }
+  .mailbox { display: flex; align-items: center; gap: 8px; padding: 4px 4px 4px 18px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg-3); min-width: 0; }
+  .mailbox span { color: var(--fg-2); font-size: 16px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding-right: 28px; }
+  .cta-row > .btn { height: 54px; border-radius: 8px; }
+
+  /* Colour stripe + pixel band */
+  .stripe { height: 4px; display: grid; grid-template-columns: repeat(6, 1fr); }
+  .stripe i:nth-child(1) { background: #0969da; } .stripe i:nth-child(2) { background: #1f883d; }
+  .stripe i:nth-child(3) { background: #0969da; } .stripe i:nth-child(4) { background: var(--purple); }
+  .stripe i:nth-child(5) { background: var(--pink); } .stripe i:nth-child(6) { background: #1a7f37; }
+  .pixels { background: var(--bg-2); background-image: linear-gradient(var(--line-2) 1px, transparent 1px), linear-gradient(90deg, var(--line-2) 1px, transparent 1px); background-size: 12px 12px; border-bottom: 1px solid var(--line-2); }
+  .pixgrid { max-width: var(--frame); margin: 0 auto; display: grid; grid-template-columns: repeat(var(--cols, 32), 1fr); border-left: 1px solid var(--line-2); border-right: 1px solid var(--line-2); background: #fff; }
+  .pixgrid i { aspect-ratio: 1; display: block; }
+
+  /* Ticker */
+  .ticker { border-bottom: 1px solid var(--line-2); background: var(--bg); position: relative; overflow: hidden; }
+  .ticker .track { display: flex; width: max-content; animation: slide 60s linear infinite; }
+  .ticker:hover .track, .ticker.paused .track { animation-play-state: paused; }
+  @keyframes slide { to { transform: translateX(-50%); } }
+  .tick { display: flex; flex-direction: column; justify-content: center; gap: 6px; padding: 22px 26px; border-right: 1px solid var(--line-2); background: var(--bg-2); min-height: 108px; white-space: nowrap; }
+  .tick .t1 { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 500; }
+  .tick .t1 em { font-style: normal; color: var(--fg-2); font-weight: 400; }
+  .tick .ico { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 6px; background: var(--green-soft); color: var(--green); }
+  .tick .t2 { font-size: 15px; color: var(--fg); }
+  .tick .t2 span { color: var(--fg-2); }
+  .tick.stat { background: #fff; }
+  .tick.stat b { font-size: 30px; line-height: 1; font-weight: 600; color: var(--green); letter-spacing: -0.02em; }
+  .tick.stat small { font-family: var(--mono); font-size: 14px; color: var(--fg-2); }
+  .ticker .fade { position: absolute; top: 0; bottom: 0; width: 80px; pointer-events: none; }
+  .ticker .fade.l { left: 0; background: linear-gradient(90deg, #fff, rgba(255,255,255,0)); }
+  .ticker .fade.r { right: 0; background: linear-gradient(270deg, #fff, rgba(255,255,255,0)); }
+  .pause { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--line); background: #fff; display: grid; place-items: center; cursor: pointer; color: var(--fg); z-index: 2; }
+
+  /* Section heads */
+  .sec-title { text-align: center; padding: 88px var(--pad) 56px; }
+  .sec-title h2 { font-size: clamp(32px, 4.2vw, 48px); line-height: 1.1; letter-spacing: -0.03em; font-weight: 600; }
+  .sec-title p { color: var(--fg-2); font-size: 18px; margin-top: 14px; max-width: 36em; margin-left: auto; margin-right: auto; }
+  .eyebrow { font-family: var(--mono); font-size: 13px; color: var(--fg-2); margin-bottom: 14px; display: block; }
+
+  /* Project grid */
+  .pgrid { display: grid; grid-template-columns: 1fr 1fr; }
+  .pcell { padding: 56px 56px 56px; border-bottom: 1px solid var(--line-2); display: flex; flex-direction: column; min-width: 0; }
+  .pcell:nth-child(odd) { border-right: 1px solid var(--line-2); }
+  .stage { background: var(--bg-2); background-image: linear-gradient(var(--line-2) 1px, transparent 1px), linear-gradient(90deg, var(--line-2) 1px, transparent 1px); background-size: 16px 16px; border: 1px solid var(--line); border-radius: 10px; padding: 28px 0 0 28px; overflow: hidden; margin-bottom: 32px; }
+  .mock { background: #fff; border: 1px solid var(--line); border-right: 0; border-bottom: 0; border-radius: 8px 0 0 0; padding: 22px 24px 18px; position: relative; }
+  .mock::before { content: ""; position: absolute; left: -1px; top: 18px; bottom: 0; width: 3px; background: var(--accent, var(--green-btn)); border-radius: 2px; }
+  .mock h3 { font-size: 21px; font-weight: 500; letter-spacing: -0.01em; }
+  .mock h3 span { color: var(--fg-2); font-weight: 400; }
+  .mock .meta { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin: 10px 0 16px; font-size: 12.5px; color: var(--fg-2); }
+  .state { display: inline-flex; align-items: center; gap: 5px; height: 24px; padding: 0 10px; border-radius: 999px; background: var(--green-btn); color: #fff; font-size: 12.5px; font-weight: 600; }
+  .state.blue { background: var(--blue); }
+  .state.purple { background: #8250df; }
+  .code { font-family: var(--mono); font-size: 11.5px; color: var(--blue); background: var(--blue-soft); padding: 1px 6px; border-radius: 4px; }
+  .checks { border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+  .checks .head { display: flex; align-items: center; gap: 10px; padding: 12px 14px; font-size: 14px; font-weight: 500; border-bottom: 1px solid var(--line); }
+  .ok { display: grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: var(--green-btn); color: #fff; flex: none; }
+  .ok svg { width: 12px; height: 12px; }
+  .row { display: flex; align-items: flex-start; gap: 10px; padding: 9px 14px; font-size: 13.5px; border-top: 1px solid var(--line-2); }
+  .row:first-of-type { border-top: 0; }
+  .row .ok { width: 16px; height: 16px; margin-top: 2px; }
+  .row .ok svg { width: 10px; height: 10px; }
+  .row div { flex: 1; min-width: 0; }
+  .row small { display: block; color: var(--fg-2); font-size: 12px; }
+  .ready { font-size: 11.5px; font-weight: 600; color: var(--green); background: var(--green-soft); border-radius: 999px; padding: 1px 8px; white-space: nowrap; }
+  .pinfo h3 { font-size: 24px; font-weight: 600; letter-spacing: -0.02em; }
+  .pinfo .who { font-family: var(--mono); font-size: 13px; color: var(--fg-2); margin: 8px 0 14px; }
+  .pinfo p { color: var(--fg-2); font-size: 16px; line-height: 1.6; }
+  .pinfo .acts { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 10px; }
+
+  .more { padding: 40px 56px; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; border-bottom: 1px solid var(--line-2); background: var(--bg-2); }
+  .more p { font-size: 18px; max-width: 40em; }
+  .more p span { color: var(--fg-2); }
+
+  /* Services */
+  .services { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line-2); }
+  .svc { padding: 40px 32px 44px; border-right: 1px solid var(--line-2); }
+  .svc:last-child { border-right: 0; }
+  .svc .badge { width: 40px; height: 40px; border-radius: 8px; display: grid; place-items: center; margin-bottom: 20px; }
+  .svc .badge svg { width: 20px; height: 20px; }
+  .svc h3 { font-size: 19px; font-weight: 600; margin-bottom: 8px; letter-spacing: -0.01em; }
+  .svc p { font-size: 15px; color: var(--fg-2); line-height: 1.55; }
+
+  /* Stats */
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line-2); }
+  .stat { padding: 40px 32px; border-right: 1px solid var(--line-2); }
+  .stat:last-child { border-right: 0; }
+  .stat b { display: block; font-size: clamp(36px, 4vw, 48px); font-weight: 600; letter-spacing: -0.03em; line-height: 1; color: var(--green); }
+  .stat small { display: block; font-family: var(--mono); font-size: 13.5px; color: var(--fg-2); margin-top: 12px; line-height: 1.5; }
+
+  /* Experience */
+  .jobs { border-top: 1px solid var(--line-2); }
+  .job { display: grid; grid-template-columns: 300px minmax(0, 1fr); border-bottom: 1px solid var(--line-2); }
+  .job .l { padding: 40px 32px 40px var(--pad); border-right: 1px solid var(--line-2); }
+  .job .l h3 { font-size: 22px; font-weight: 600; letter-spacing: -0.02em; }
+  .job .l .co { font-size: 16px; margin-top: 4px; }
+  .job .l time { display: block; font-family: var(--mono); font-size: 13px; color: var(--fg-2); margin-top: 12px; }
+  .job .l .state { margin-top: 14px; }
+  .job .r { padding: 40px var(--pad) 40px 40px; }
+  .job .r .lead { font-size: 17px; margin-bottom: 16px; }
+  .job .r h4 { font-family: var(--mono); font-size: 12.5px; font-weight: 500; color: var(--fg-2); margin: 20px 0 8px; text-transform: uppercase; letter-spacing: .04em; }
+  .job ul { list-style: none; margin: 0; padding: 0; }
+  .job li { position: relative; padding-left: 26px; margin: 8px 0; color: var(--fg-2); font-size: 15.5px; line-height: 1.55; }
+  .job li::before { content: ""; position: absolute; left: 0; top: 4px; width: 14px; height: 14px; border-radius: 50%; background: var(--green-soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%231a7f37' d='M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z'/%3E%3C/svg%3E") center / 10px no-repeat; }
+  .job li b { color: var(--fg); font-weight: 600; }
+
+  /* Skills */
+  .skills { border-top: 1px solid var(--line-2); }
+  .sk { display: grid; grid-template-columns: 300px minmax(0, 1fr); border-bottom: 1px solid var(--line-2); }
+  .sk dt { padding: 22px 32px 22px var(--pad); border-right: 1px solid var(--line-2); font-weight: 600; }
+  .sk dd { margin: 0; padding: 18px var(--pad) 18px 40px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .chip { font-family: var(--mono); font-size: 13px; padding: 4px 10px; border: 1px solid var(--line); border-radius: 6px; background: var(--bg-2); }
+
+  /* Closing CTA */
+  .closing { padding: 88px var(--pad) 96px; }
+  .closing h2 { font-size: clamp(30px, 3.6vw, 40px); line-height: 1.15; letter-spacing: -0.025em; font-weight: 500; max-width: 16em; margin-bottom: 28px; }
+  .closing .cta-row { justify-content: flex-start; }
+  .contact-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line-2); }
+  .contact-grid a { padding: 28px var(--pad); border-right: 1px solid var(--line-2); display: block; }
+  .contact-grid a:last-child { border-right: 0; }
+  .contact-grid a:hover { background: var(--bg-2); }
+  .contact-grid small { display: block; font-family: var(--mono); font-size: 12.5px; color: var(--fg-2); margin-bottom: 6px; }
+  .contact-grid span { font-size: 17px; font-weight: 500; word-break: break-word; }
+
+  footer { border-top: 1px solid var(--line-2); }
+  footer .inner { max-width: var(--frame); margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; padding-top: 28px; padding-bottom: 36px; font-size: 13.5px; color: var(--fg-2); }
+
+  /* Responsive */
+  @media (max-width: 1100px) {
+    :root { --pad: 32px; }
+    .services, .stats { grid-template-columns: 1fr 1fr; }
+    .svc:nth-child(2), .stat:nth-child(2) { border-right: 0; }
+    .svc:nth-child(n+3), .stat:nth-child(n+3) { border-top: 1px solid var(--line-2); }
+    .pcell { padding: 40px 32px; }
+    .job, .sk { grid-template-columns: 240px minmax(0, 1fr); }
+  }
+  @media (max-width: 860px) {
+    .links { display: none; }
+    .pgrid { grid-template-columns: 1fr; }
+    .pcell:nth-child(odd) { border-right: 0; }
+    .job, .sk { grid-template-columns: 1fr; }
+    .job .l { border-right: 0; padding-bottom: 0; }
+    .job .r { padding-top: 20px; padding-left: var(--pad); }
+    .sk dt { border-right: 0; padding-bottom: 4px; }
+    .sk dd { padding: 4px var(--pad) 20px; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .contact-grid a { border-right: 0; border-bottom: 1px solid var(--line-2); }
+    .more { padding: 32px; }
+  }
+  @media (max-width: 600px) {
+    :root { --pad: 16px; }
+    .frame, .pixgrid { border-left: 0; border-right: 0; }
+    .nav .bar { gap: 12px; height: 60px; }
+    .nav .right .hide-sm { display: none; }
+    .hero { padding-top: 48px; padding-bottom: 40px; }
+    .pill { font-size: 13.5px; }
+    .cta-row { flex-direction: column; align-items: stretch; }
+    .mailbox { flex-direction: column; align-items: stretch; padding: 4px; }
+    .mailbox span { padding: 10px 12px; font-size: 15px; text-align: center; }
+    .mailbox .btn { flex: none; }
+    .services, .stats { grid-template-columns: 1fr; }
+    .svc, .stat { border-right: 0 !important; border-top: 1px solid var(--line-2); padding: 28px var(--pad); }
+    .svc:first-child, .stat:first-child { border-top: 0; }
+    .pcell { padding: 32px var(--pad); }
+    .stage { padding: 16px 0 0 16px; margin-bottom: 24px; }
+    .mock { padding: 16px 16px 14px; }
+    .mock h3 { font-size: 18px; }
+    .sec-title { padding: 64px var(--pad) 40px; }
+    .more { padding: 28px var(--pad); }
+    .tick { padding: 18px 20px; min-height: 92px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .ticker .track { animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="check" viewBox="0 0 16 16"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"/></symbol>
+  <symbol id="chev" viewBox="0 0 16 16"><path d="M6.22 3.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L9.94 8 6.22 4.28a.75.75 0 0 1 0-1.06Z"/></symbol>
+  <symbol id="ext" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2Zm6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1Z"/></symbol>
+  <symbol id="rocket" viewBox="0 0 16 16"><path d="M14.064 0h.186C15.216 0 16 .784 16 1.75v.186a8.752 8.752 0 0 1-2.564 6.186l-.458.459c-.314.314-.641.616-.979.904v3.207c0 .608-.315 1.172-.833 1.49l-2.774 1.707a.749.749 0 0 1-1.11-.418l-.954-3.102a1.214 1.214 0 0 1-.145-.125L3.754 9.816a1.218 1.218 0 0 1-.124-.145L.528 8.717a.749.749 0 0 1-.418-1.11l1.71-2.774A1.748 1.748 0 0 1 3.31 4h3.204c.288-.338.59-.665.904-.979l.459-.458A8.749 8.749 0 0 1 14.064 0ZM8.938 3.623h-.002l-.458.458c-.76.76-1.437 1.598-2.02 2.5l-1.5 2.317 2.143 2.143 2.317-1.5c.902-.583 1.74-1.26 2.499-2.02l.459-.458a7.25 7.25 0 0 0 2.123-5.127V1.75a.25.25 0 0 0-.25-.25h-.186a7.249 7.249 0 0 0-5.125 2.123ZM3.56 14.56c-.732.732-2.334 1.045-3.005 1.148a.234.234 0 0 1-.201-.064.234.234 0 0 1-.064-.201c.103-.671.416-2.273 1.15-3.003a1.502 1.502 0 1 1 2.12 2.12Zm6.94-3.935c-.088.06-.177.118-.266.175l-2.35 1.521.548 1.783 1.949-1.2a.25.25 0 0 0 .119-.213ZM3.678 8.116 5.2 5.766c.058-.09.117-.178.176-.266H3.309a.25.25 0 0 0-.213.119l-1.2 1.95ZM12 5a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"/></symbol>
+  <symbol id="db" viewBox="0 0 16 16"><path d="M1 3.5c0-.626.292-1.165.7-1.59.406-.422.956-.767 1.579-1.041C4.525.32 6.195 0 8 0c1.805 0 3.475.32 4.722.869.622.274 1.172.62 1.578 1.04.408.426.7.965.7 1.591v9c0 .626-.292 1.165-.7 1.59-.406.422-.956.767-1.579 1.041C11.476 15.68 9.806 16 8 16c-1.805 0-3.475-.32-4.721-.869-.623-.274-1.173-.62-1.579-1.04-.408-.426-.7-.965-.7-1.591Zm1.5 0c0 .133.058.318.282.551.227.237.591.483 1.101.707C4.898 5.205 6.353 5.5 8 5.5c1.646 0 3.101-.295 4.118-.742.508-.224.873-.471 1.1-.708.224-.232.282-.417.282-.55 0-.133-.058-.318-.282-.551-.227-.237-.591-.483-1.101-.707C11.102 1.795 9.647 1.5 8 1.5c-1.646 0-3.101.295-4.118.742-.508.224-.873.471-1.1.708-.224.232-.282.417-.282.55Zm0 4.5c0 .133.058.318.282.551.227.237.591.483 1.101.707C4.898 9.705 6.353 10 8 10c1.646 0 3.101-.295 4.118-.742.508-.224.873-.471 1.1-.708.224-.232.282-.417.282-.55V5.724c-.241.15-.503.286-.778.407C11.475 6.68 9.805 7 8 7c-1.805 0-3.475-.32-4.721-.869a6.15 6.15 0 0 1-.779-.407Zm0 2.225V12.5c0 .133.058.318.282.55.227.237.592.484 1.1.708 1.016.447 2.471.742 4.118.742 1.647 0 3.102-.295 4.117-.742.51-.224.874-.47 1.101-.707.224-.233.282-.418.282-.551v-2.275c-.241.15-.503.285-.778.406-1.247.549-2.917.869-4.722.869-1.805 0-3.475-.32-4.721-.869a6.327 6.327 0 0 1-.779-.406Z"/></symbol>
+  <symbol id="people" viewBox="0 0 16 16"><path d="M2 5.5a3.5 3.5 0 1 1 5.898 2.549 5.508 5.508 0 0 1 3.034 4.084.75.75 0 1 1-1.482.235 4 4 0 0 0-7.9 0 .75.75 0 0 1-1.482-.236A5.507 5.507 0 0 1 3.102 8.05 3.493 3.493 0 0 1 2 5.5ZM11 4a3.001 3.001 0 0 1 2.22 5.018 5.01 5.01 0 0 1 2.56 3.012.749.749 0 0 1-.885.954.752.752 0 0 1-.549-.514 3.507 3.507 0 0 0-2.522-2.372.75.75 0 0 1-.574-.73v-.352a.75.75 0 0 1 .416-.672A1.5 1.5 0 0 0 11 5.5.75.75 0 0 1 11 4Zm-5.5-.5a2 2 0 1 0-.001 3.999A2 2 0 0 0 5.5 3.5Z"/></symbol>
+  <symbol id="globe" viewBox="0 0 16 16"><path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM5.78 8.75a9.64 9.64 0 0 0 1.363 4.177c.255.426.542.832.857 1.215.245-.296.551-.705.857-1.215A9.64 9.64 0 0 0 10.22 8.75Zm4.44-1.5a9.64 9.64 0 0 0-1.363-4.177c-.307-.51-.612-.919-.857-1.215a9.927 9.927 0 0 0-.857 1.215A9.64 9.64 0 0 0 5.78 7.25Zm-5.944 1.5H1.543a6.507 6.507 0 0 0 4.666 5.5c-.123-.181-.24-.365-.352-.552-.715-1.192-1.437-2.874-1.581-4.948Zm-2.733-1.5h2.733c.144-2.074.866-3.756 1.58-4.948.12-.197.237-.381.353-.552a6.507 6.507 0 0 0-4.666 5.5Zm10.181 1.5c-.144 2.074-.866 3.756-1.58 4.948-.12.197-.237.381-.353.552a6.507 6.507 0 0 0 4.666-5.5Zm2.733-1.5a6.507 6.507 0 0 0-4.666-5.5c.123.181.24.365.353.552.714 1.192 1.436 2.874 1.58 4.948Z"/></symbol>
+  <symbol id="cpu" viewBox="0 0 16 16"><path d="M5.75 7.5a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5a.75.75 0 0 1 .75-.75Zm5.25.75a.75.75 0 0 0-1.5 0v1.5a.75.75 0 0 0 1.5 0v-1.5Z"/><path d="M6.25 0h2A.75.75 0 0 1 9 .75V3.5h3.25a2.25 2.25 0 0 1 2.25 2.25V7h.75a.75.75 0 0 1 0 1.5h-.75v2.75a2.25 2.25 0 0 1-2.25 2.25h-8.5a2.25 2.25 0 0 1-2.25-2.25V8.5H.75a.75.75 0 0 1 0-1.5h.75V5.75A2.25 2.25 0 0 1 3.75 3.5H7.5v-2H6.25a.75.75 0 0 1 0-1.5ZM3 5.75v5.5c0 .414.336.75.75.75h8.5a.75.75 0 0 0 .75-.75v-5.5a.75.75 0 0 0-.75-.75h-8.5a.75.75 0 0 0-.75.75Z"/></symbol>
+  <symbol id="push" viewBox="0 0 16 16"><path d="M1 2.5A2.5 2.5 0 0 1 3.5 0h8.75a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-1.5 0V1.5h-8a1 1 0 0 0-1 1v6.708A2.493 2.493 0 0 1 3.5 9h3.25a.75.75 0 0 1 0 1.5H3.5a1 1 0 0 0 0 2h5.75a.75.75 0 0 1 0 1.5H3.5A2.5 2.5 0 0 1 1 11.5Zm13.23 7.79h-.001l-1.224-1.224v6.184a.75.75 0 0 1-1.5 0V9.066L10.28 10.29a.75.75 0 0 1-1.06-1.061l2.505-2.504a.75.75 0 0 1 1.06 0L15.29 9.23a.751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018Z"/></symbol>
+  <symbol id="merge" viewBox="0 0 16 16"><path d="M5.45 5.154A4.25 4.25 0 0 0 9.25 7.5h1.378a2.251 2.251 0 1 1 0 1.5H9.25A5.734 5.734 0 0 1 5 7.123v3.505a2.25 2.25 0 1 1-1.5 0V5.372a2.25 2.25 0 1 1 1.95-.218ZM4.25 13.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm8.5-4.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM5 3.25a.75.75 0 1 0 0 .005V3.25Z"/></symbol>
+  <symbol id="pause" viewBox="0 0 16 16"><path d="M4.5 2a.5.5 0 0 0-.5.5v11a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-11a.5.5 0 0 0-.5-.5Zm5 0a.5.5 0 0 0-.5.5v11a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-11a.5.5 0 0 0-.5-.5Z"/></symbol>
+  <symbol id="play" viewBox="0 0 16 16"><path d="M4 2.5v11a.5.5 0 0 0 .77.42l8.5-5.5a.5.5 0 0 0 0-.84l-8.5-5.5A.5.5 0 0 0 4 2.5Z"/></symbol>
+  <symbol id="download" viewBox="0 0 16 16"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Z"/><path d="M7.25 7.689V2a.75.75 0 0 1 1.5 0v5.689l1.97-1.969a.749.749 0 1 1 1.06 1.06l-3.25 3.25a.749.749 0 0 1-1.06 0L4.22 6.78a.749.749 0 1 1 1.06-1.06l1.97 1.969Z"/></symbol>
+</svg>
+
+<!-- NAV -->
+<header class="nav">
+  <div class="bar">
+    <a class="brand" href="#top"><i>AM</i>Ashutosh Mishra</a>
+    <nav class="links" aria-label="Sections">
+      <a href="#work">Work</a>
+      <a href="#services">Services</a>
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+    </nav>
+    <span class="sp"></span>
+    <div class="right">
+      <a class="hide-sm" href="assets/Ashutosh-Mishra-Resume.pdf" target="_blank" rel="noopener">Résumé</a>
+      <a class="btn btn-dark btn-sm" href="#contact">Hire me</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <div class="frame">
+    <section class="hero">
+      <a class="pill" href="#contact"><span class="dot"></span>Available for freelance &amp; full-time work<span class="chev"><svg class="i" style="width:12px;height:12px"><use href="#chev"/></svg></span></a>
+      <h1>I build the software businesses run on</h1>
+      <p class="sub">Full stack engineer in Mumbai. ERPs, CRMs, full websites and AI products for clients — and production fintech systems serving 100K+ users.</p>
+      <div class="cta-row">
+        <div class="mailbox"><span>mashutoshh@gmail.com</span><a class="btn btn-green btn-lg" href="mailto:mashutoshh@gmail.com">Start a project</a></div>
+        <a class="btn btn-lg" href="assets/Ashutosh-Mishra-Resume.pdf" target="_blank" rel="noopener"><svg class="i"><use href="#download"/></svg>Download résumé</a>
+      </div>
+    </section>
+  </div>
+
+  <div class="stripe" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="pixels" aria-hidden="true"><div class="pixgrid" id="pixgrid"></div></div>
+
+  <!-- TICKER -->
+  <div class="ticker" id="ticker" aria-label="Recent highlights">
+    <div class="track">
+      <div class="tick"><div class="t1"><span class="ico"><svg class="i"><use href="#rocket"/></svg></span>shipped <em>for</em> Go Solar Solutions</div><div class="t2">go-solar-hrms <span>· ERP · payroll · inventory</span></div></div>
+      <div class="tick stat"><b>100K+</b><small>users on a platform I built</small></div>
+      <div class="tick"><div class="t1"><span class="ico"><svg class="i"><use href="#push"/></svg></span>deployed <em>to</em> production</div><div class="t2">scorpionlogistics.qa <span>· full website</span></div></div>
+      <div class="tick"><div class="t1"><span class="ico"><svg class="i"><use href="#merge"/></svg></span>launched <em>for</em> Trenfluenzy</div><div class="t2">trackflow <span>· campaign tracking CRM</span></div></div>
+      <div class="tick stat"><b>1M+</b><small>API requests served every day</small></div>
+      <div class="tick"><div class="t1"><span class="ico"><svg class="i"><use href="#cpu"/></svg></span>AI pipeline <em>for</em> Zudio</div><div class="t2">generative images <span>· in production</span></div></div>
+      <div class="tick"><div class="t1"><span class="ico"><svg class="i"><use href="#push"/></svg></span>deployed <em>for</em> PGE Industries</div><div class="t2">pilot-gasket <span>· full website</span></div></div>
+      <div class="tick stat"><b>54%</b><small>revenue growth after launch</small></div>
+      <div class="tick"><div class="t1"><span class="ico"><svg class="i"><use href="#cpu"/></svg></span>RAG platform <em>built</em></div><div class="t2">classkit <span>· self-hosted LLM</span></div></div>
+    </div>
+    <span class="fade l"></span><span class="fade r"></span>
+    <button class="pause" id="pauseBtn" aria-label="Pause ticker"><svg class="i"><use href="#pause"/></svg></button>
+  </div>
+
+  <!-- CLIENT WORK -->
+  <div class="frame" id="work">
+    <div class="sec-title">
+      <span class="eyebrow">01 / client work</span>
+      <h2>Built for real businesses</h2>
+      <p>ERPs, CRMs and websites I've designed, built and shipped end to end — from database to deployment.</p>
+    </div>
+
+    <div class="pgrid band">
+
+      <!-- Go Solar -->
+      <article class="pcell">
+        <div class="stage"><div class="mock">
+          <h3>Go Solar HRMS <span>#erp</span></h3>
+          <div class="meta"><span class="state"><svg class="i" style="width:12px;height:12px"><use href="#check"/></svg>Live</span><span>5 modules shipped to</span><span class="code">go-solar</span></div>
+          <div class="checks">
+            <div class="head"><span class="ok"><svg class="i"><use href="#check"/></svg></span>All modules in production</div>
+            <div class="row"><span class="ok"><svg class="i"><use href="#check"/></svg></span><div>HR &amp; payroll<small>employees · attendance · monthly runs</small></div><span class="ready">Ready</span></div>
+            <div class="row"><span class="ok"><svg class="i"><use href="#check"/></svg></span><div>Statutory compliance<small>PF · ESI · PT · TDS</small></div><span class="ready">Ready</span></div>
+            <div class="row"><span class="ok"><svg class="i"><use href="#check"/></svg></span><div>AMC management<small>maintenance contracts · schedules</small></div><span class="ready">Ready</span></div>
+            <div class="row"><span class="ok"><svg class="i"><use href="#check"/></svg></span><div>Solar inventory<small>panels · inverters · stock</small></div><span class="ready">Ready</span></div>
+          </div>
+        </div></div>
+        <div class="pinfo">
+          <h3>Go Solar Solutions — ERP &amp; HRMS</h3>
+          <div class="who">Solar EPC · Navi Mumbai</div>
+          <p>An internal ERP for a solar installation company that replaced spreadsheets for HR, payroll and field operations. Payroll runs with PF, ESI, PT and TDS built in, annual maintenance contracts for installed systems are tracked with service schedules, and solar equipment is followed from warehouse to project. Role-based access gives HR, accounts and operations only what they need.</p>
+          <div class="acts"><a class="btn btn-sm" href="https://softsyncsolutions.in/projects/go-solar-hrms.html" target="_blank" rel="noopener">Read case study <svg class="i"><use href="#ext"/></svg></a></div>
+        </div>
+      </article>
+
+      <!-- Trackflow -->
+      <article class="pcell">
+        <div class="stage" style="--accent:#0969da"><div class="mock" style="--accent:#0969da">
+          <h3>Trackflow <span>#crm</span></h3>
+          <div class="meta"><span class="state blue"><svg class="i" style="width:12px;height:12px"><use href="#check"/></svg>Live</span><span>campaign tracking for</span><span class="code">trenfluenzy</span></div>
+          <div class="checks">
+            <div class="head"><span class="ok"><svg class="i"><use href="#check"/></svg></span>Platform features</div>
+            <div class="row"><span class="ok"><svg class="i"><use href="#check"/></svg></span><div>Secure login<small>agency team · partners</small></div><span class="ready">Ready</span></div>
+            <div class="row"><span class="ok"><svg class="i"><use href="#check"/></svg></span><div>Campaign management<small>affiliates · vendors</small></div><span class="ready">Ready</span></div>
+            <div class="row"><span class="ok"><svg class="i"><use href="#check"/></svg></span><div>Performance tracking<small>per campaign · per partner</small></div><span class="ready">Ready</span></div>
+            <div class="row"><span class="ok"><svg class="i"><use href="#check"/></svg></span><div>Reporting dashboards<small>internal team</small></div><span class="ready">Ready</span></div>
+          </div>
+        </div></div>
+        <div class="pinfo">
+          <h3>Trenfluenzy — Trackflow</h3>
+          <div class="who">Digital &amp; influencer marketing agency · India</div>
+          <p>Trackflow is the agency's affiliate and vendor campaign tracking platform. Instead of collecting numbers from every partner by hand, the team runs campaigns in one place, assigns affiliates and vendors, and sees how each campaign and each partner is performing on live dashboards.</p>
+          <div class="acts"><a class="btn btn-sm" href="https://www.trenfluenzy.com/trackflow/login" target="_blank" rel="noopener">Open Trackflow <svg class="i"><use href="#ext"/></svg></a></div>
+        </div>
+      </article>
+
+      <!-- Scorpion -->
+      <article class="pcell">
+        <div class="stage" style="--accent:#8250df"><div class="mock" style="--accent:#8250df">
+          <h3>scorpionlogistics.qa <span>#website</span></h3>
+          <div class="meta"><span class="state purple"><svg class="i" style="width:12px;height:12px"><use href="#check"/></svg>Deployed</span><span>full website for</span><span class="code">scorpion-logistics</span></div>
+          <div class="checks">
+            <div class="head"><span class="ok"><svg class="i"><use href="#check"/></svg></span>Site sections</div>
+            <div class="row"><span class="ok"><svg class="i"><use href="#check"/></svg></span><div>Air &amp; ocean freight<small>FCL · LCL shipments</small></div><span class="ready">Live</span></div>
+            <div class="row"><span class="ok"><svg class="i"><use href="#check"/></svg></span><div>Door-to-door &amp; warehousing<small>distribution services</small></div><span class="ready">Live</span></div>
+            <div class="row"><span class="ok"><svg class="i"><use href="#check"/></svg></span><div>Enquiries &amp; contact<small>imports · exports</small></div><span class="ready">Live</span></div>
+            <div class="row"><span class="ok"><svg class="i"><use href="#check"/></svg></span><div>Responsive &amp; SEO<small>every screen size</small></div><span class="ready">Live</span></div>
+          </div>
+        </div></div>
+        <div class="pinfo">
+          <h3>Scorpion Logistics — full website</h3>
+          <div class="who">Freight &amp; logistics · Al Wakrah, Qatar</div>
+          <p>The complete company website for a Qatar-based freight forwarder, designed and built from scratch. It presents their air and ocean freight, FCL/LCL shipping, door-to-door delivery and warehousing services, and gives importers and exporters a direct way to get in touch.</p>
+          <div class="acts"><a class="btn btn-sm" href="https://scorpionlogistics.qa" target="_blank" rel="noopener">Visit site <svg class="i"><use href="#ext"/></svg></a></div>
+        </div>
+      </article>
+
+      <!-- PGE -->
+      <article class="pcell">
+        <div class="stage" style="--accent:#bf3989"><div class="mock" style="--accent:#bf3989">
+          <h3>PGE Industries <span>#website</span></h3>
+          <div class="meta"><span class="state purple" style="background:#bf3989"><svg class="i" style="width:12px;height:12px"><use href="#check"/></svg>Deployed</span><span>on</span><span class="code">vercel</span></div>
+          <div class="checks">
+            <div class="head"><span class="ok"><svg class="i"><use href="#check"/></svg></span>Site sections</div>
+            <div class="row"><span class="ok"><svg class="i"><use href="#check"/></svg></span><div>Company profile<small>PGE Industries Pvt Ltd</small></div><span class="ready">Live</span></div>
+            <div class="row"><span class="ok"><svg class="i"><use href="#check"/></svg></span><div>Product range<small>Pilot Gasket</small></div><span class="ready">Live</span></div>
+            <div class="row"><span class="ok"><svg class="i"><use href="#check"/></svg></span><div>Buyer enquiries<small>buyers · distributors</small></div><span class="ready">Live</span></div>
+            <div class="row"><span class="ok"><svg class="i"><use href="#check"/></svg></span><div>Responsive &amp; SEO<small>every screen size</small></div><span class="ready">Live</span></div>
+          </div>
+        </div></div>
+        <div class="pinfo">
+          <h3>PGE Industries — Pilot Gasket</h3>
+          <div class="who">Industrial manufacturing · India</div>
+          <p>A corporate website for PGE Industries and its Pilot Gasket brand, built end to end and deployed on Vercel. It introduces the company, presents the product range to industrial buyers, and routes enquiries straight to the team.</p>
+          <div class="acts"><a class="btn btn-sm" href="https://pgei-nine.vercel.app/" target="_blank" rel="noopener">Visit site <svg class="i"><use href="#ext"/></svg></a></div>
+        </div>
+      </article>
+
+      <!-- Zudio -->
+      <article class="pcell">
+        <div class="stage"><div class="mock">
+          <h3>Image generation pipeline <span>#ai</span></h3>
+          <div class="meta"><span class="state"><svg class="i" style="width:12px;height:12px"><use href="#check"/></svg>In production</span><span>for</span><span class="code">zudio</span><span>via BizPay</span></div>
+          <div class="checks">
+            <div class="head"><span class="ok"><svg class="i"><use href="#check"/></svg></span>Pipeline stages</div>
+            <div class="row"><span class="ok"><svg class="i"><use href="#check"/></svg></span><div>Request intake<small>from the client-facing product</small></div><span class="ready">Ready</span></div>
+            <div class="row"><span class="ok"><svg class="i"><use href="#check"/></svg></span><div>Generative models<small>image generation</small></div><span class="ready">Ready</span></div>
+            <div class="row"><span class="ok"><svg class="i"><use href="#check"/></svg></span><div>Delivery at scale<small>dynamic visual content</small></div><span class="ready">Ready</span></div>
+          </div>
+        </div></div>
+        <div class="pinfo">
+          <h3>Zudio — generative AI images</h3>
+          <div class="who">Retail · built at BizPay</div>
+          <p>A production pipeline that connects generative AI models to Zudio's client-facing product, so visual content is created dynamically and at scale instead of by hand.</p>
+        </div>
+      </article>
+
+      <!-- ClassKit -->
+      <article class="pcell">
+        <div class="stage" style="--accent:#0969da"><div class="mock" style="--accent:#0969da">
+          <h3>ClassKit <span>#ai #rag</span></h3>
+          <div class="meta"><span class="state blue"><svg class="i" style="width:12px;height:12px"><use href="#check"/></svg>Demo live</span><span>self-hosted</span><span class="code">qwen-2.5-72b</span></div>
+          <div class="checks">
+            <div class="head"><span class="ok"><svg class="i"><use href="#check"/></svg></span>Architecture</div>
+            <div class="row"><span class="ok"><svg class="i"><use href="#check"/></svg></span><div>Hierarchical RAG<small>Docling · PageIndex</small></div><span class="ready">Ready</span></div>
+            <div class="row"><span class="ok"><svg class="i"><use href="#check"/></svg></span><div>Agent orchestrator<small>pluggable agent registry</small></div><span class="ready">Ready</span></div>
+            <div class="row"><span class="ok"><svg class="i"><use href="#check"/></svg></span><div>Role-based access<small>admins · teachers · students</small></div><span class="ready">Ready</span></div>
+            <div class="row"><span class="ok"><svg class="i"><use href="#check"/></svg></span><div>Auto-generated docs<small>PDF · PowerPoint</small></div><span class="ready">Ready</span></div>
+          </div>
+        </div></div>
+        <div class="pinfo">
+          <h3>ClassKit — AI learning platform</h3>
+          <div class="who">EdTech · own product</div>
+          <p>A self-hosted platform where schools upload their own material and get accurate AI answers grounded in it, without data leaving their infrastructure. Built on Django and PostgreSQL with a self-hosted Qwen 2.5 72B via LiteLLM / NVIDIA NIM — and most of the work went into making retrieval reliable: fixing chunking, metadata, table extraction and hallucinations.</p>
+        </div>
+      </article>
+    </div>
+
+    <div class="more">
+      <p>Plus more ERPs, CRMs, websites and AI tools for other clients. <span>Happy to walk you through the ones closest to what you need.</span></p>
+      <a class="btn btn-dark" href="#contact">Talk about your project</a>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <div class="frame" id="services">
+    <div class="sec-title">
+      <span class="eyebrow">02 / services</span>
+      <h2>One engineer, the whole stack</h2>
+      <p>From the website your customers see to the systems your team uses every day.</p>
+    </div>
+    <div class="services">
+      <div class="svc"><span class="badge" style="background:#dafbe1;color:#1a7f37"><svg class="i"><use href="#db"/></svg></span><h3>ERP systems</h3><p>Payroll, HR, inventory, maintenance contracts and statutory compliance, shaped around how your business actually runs.</p></div>
+      <div class="svc"><span class="badge" style="background:#ddf4ff;color:#0969da"><svg class="i"><use href="#people"/></svg></span><h3>CRMs &amp; admin panels</h3><p>Leads, customers and partners in one place, with role-based access, approval flows and real-time dashboards.</p></div>
+      <div class="svc"><span class="badge" style="background:#fbefff;color:#8250df"><svg class="i"><use href="#globe"/></svg></span><h3>Full websites</h3><p>Company websites designed and built from scratch — fast, responsive on every screen, and ready for search.</p></div>
+      <div class="svc"><span class="badge" style="background:#ffeff7;color:#bf3989"><svg class="i"><use href="#cpu"/></svg></span><h3>AI integrations</h3><p>LLM features, RAG over your documents, AI agents and generative image pipelines running in production.</p></div>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>100K+</b><small>users on the trading platform I built</small></div>
+      <div class="stat"><b>1M+</b><small>daily API requests at sub-100 ms</small></div>
+      <div class="stat"><b>3.6 mo</b><small>to ship platform, app and CRM</small></div>
+      <div class="stat"><b>150+ hrs</b><small>of manual work saved every month</small></div>
+    </div>
+  </div>
+
+  <!-- EXPERIENCE -->
+  <div class="frame" id="experience">
+    <div class="sec-title">
+      <span class="eyebrow">03 / experience</span>
+      <h2>Where I've worked</h2>
+      <p>3+ years building production fintech systems.</p>
+    </div>
+    <div class="jobs">
+      <article class="job">
+        <div class="l"><h3>BizPay</h3><div class="co">Software Engineer (SDE II)</div><time>Mar 2026 — present · Mumbai</time><span class="state">Current</span></div>
+        <div class="r">
+          <p class="lead">Bank integrations, cross-platform mobile and applied AI.</p>
+          <ul>
+            <li>Architected a secure Django + PostgreSQL layer giving enterprise clients direct, encrypted connectivity to Indian banks, with one API abstraction for multi-bank onboarding</li>
+            <li>Transactional workflows with rollback handling, audit logging and RBI-compliant data flows across concurrent banking operations</li>
+            <li>Took the React Native app to full Android + iOS coverage on a single codebase</li>
+            <li>Integrated Google AI and third-party LLMs into production, and shipped the generative image pipeline for Zudio</li>
+          </ul>
+        </div>
+      </article>
+      <article class="job">
+        <div class="l"><h3>Wizards</h3><div class="co">Software Engineer (SDE I)</div><time>Jan 2025 — Feb 2026 · Mumbai</time></div>
+        <div class="r">
+          <p class="lead">Built a trading platform, its mobile app and the admin CRM end to end in 3.6 months — driving 54% revenue growth.</p>
+          <h4>Trading platform</h4>
+          <ul>
+            <li>FastAPI backend at <b>350+ req/s average, 1,000+ peak</b>, sub-100 ms latency and 99.9% uptime</li>
+            <li>React Native Android app, designed and built solo, for forex, crypto, commodities, NSE and MCX</li>
+            <li>MetaTrader and crypto exchange integrations over WebSockets for live prices and instant execution</li>
+            <li>Multiple UPI and international payment gateways at a <b>98%+ success rate</b></li>
+          </ul>
+          <h4>Admin CRM &amp; compliance</h4>
+          <ul>
+            <li>RBAC-based CRM for 12+ admins across sales, compliance and operations</li>
+            <li>Automated KYC with Aadhaar and PAN validation for 10K+ users</li>
+            <li>Fraud and risk detection for scalping, hedging violations and unusual trading</li>
+            <li>Real-time revenue, P&amp;L and deposit dashboards; PBX and WhatsApp Business integrations</li>
+          </ul>
+        </div>
+      </article>
+      <article class="job">
+        <div class="l"><h3>Livnest Technologies</h3><div class="co">Software Engineer (SDE I)</div><time>Apr 2023 — Dec 2024 · Mumbai</time></div>
+        <div class="r">
+          <p class="lead">Revenue management and finance systems.</p>
+          <ul>
+            <li>Revenue management system at <b>99.8% reporting accuracy</b>, secured with OAuth 2.0 and RBAC for 200+ users</li>
+            <li>Hybrid MongoDB + MySQL data layer — 60% faster queries</li>
+            <li>REST and GraphQL APIs that cut frontend data-fetching overhead by 45%</li>
+            <li>Automated reconciliation: 8 hours of daily manual work down to 45 minutes</li>
+          </ul>
+        </div>
+      </article>
+      <article class="job">
+        <div class="l"><h3>Jurni Media</h3><div class="co">Front-End Developer Intern</div><time>Feb 2020 — Mar 2020 · London</time></div>
+        <div class="r">
+          <ul><li>Built dynamic pages with the backend team, lifting site SEO by 15%</li></ul>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <!-- SKILLS -->
+  <div class="frame" id="skills">
+    <div class="sec-title">
+      <span class="eyebrow">04 / toolkit</span>
+      <h2>What I work with</h2>
+    </div>
+    <dl class="skills" style="margin:0">
+      <div class="sk"><dt>Languages</dt><dd><span class="chip">Python</span><span class="chip">TypeScript</span><span class="chip">JavaScript</span><span class="chip">PHP</span></dd></div>
+      <div class="sk"><dt>Backend</dt><dd><span class="chip">FastAPI</span><span class="chip">Django</span><span class="chip">Node.js</span><span class="chip">Express</span><span class="chip">Laravel</span><span class="chip">GraphQL</span><span class="chip">WebSockets</span></dd></div>
+      <div class="sk"><dt>Frontend &amp; mobile</dt><dd><span class="chip">React</span><span class="chip">Next.js</span><span class="chip">React Native</span><span class="chip">Tailwind CSS</span><span class="chip">UI/UX</span></dd></div>
+      <div class="sk"><dt>AI</dt><dd><span class="chip">LLMs</span><span class="chip">RAG</span><span class="chip">AI agents</span><span class="chip">LiteLLM</span><span class="chip">Generative AI</span></dd></div>
+      <div class="sk"><dt>Data</dt><dd><span class="chip">PostgreSQL</span><span class="chip">MySQL</span><span class="chip">MongoDB</span><span class="chip">Redis</span></dd></div>
+      <div class="sk"><dt>Cloud &amp; DevOps</dt><dd><span class="chip">AWS</span><span class="chip">Docker</span><span class="chip">Vercel</span><span class="chip">Microservices</span></dd></div>
+      <div class="sk"><dt>Fintech</dt><dd><span class="chip">MetaTrader</span><span class="chip">UPI</span><span class="chip">Payment gateways</span><span class="chip">KYC</span><span class="chip">Bank integrations</span></dd></div>
+      <div class="sk"><dt>Education</dt><dd style="font-size:15px">B.Sc. Computer Science, Nagindas Khandwala College, Mumbai — 9.40 / 10 · 2020–23</dd></div>
+    </dl>
+  </div>
+
+  <!-- CLOSING -->
+  <div class="stripe" aria-hidden="true" style="margin-top:96px"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="frame" id="contact">
+    <section class="closing">
+      <span class="eyebrow">05 / contact</span>
+      <h2>Whatever your business needs built, I can build it.</h2>
+      <div class="cta-row">
+        <a class="btn btn-green btn-lg" href="mailto:mashutoshh@gmail.com">Email me</a>
+        <a class="btn btn-lg" href="assets/Ashutosh-Mishra-Resume.pdf" target="_blank" rel="noopener">Download résumé</a>
+      </div>
+    </section>
+    <div class="contact-grid">
+      <a href="mailto:mashutoshh@gmail.com"><small>email</small><span>mashutoshh@gmail.com</span></a>
+      <a href="tel:+917208320766"><small>phone</small><span>+91 72083 20766</span></a>
+      <a href="assets/Ashutosh-Mishra-Resume.pdf" target="_blank" rel="noopener"><small>résumé</small><span>Download PDF</span></a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="inner">
+    <span>© 2026 Ashutosh Mishra</span>
+    <span>Mumbai, India</span>
+  </div>
+</footer>
+
+<script>
+  // Pixel band: soft grey squares with a coloured "activity" line rising across it
+  (function () {
+    var grid = document.getElementById('pixgrid');
+    if (!grid) return;
+    var colors = ['#1a7f37', '#2da44e', '#4ac26b', '#0969da', '#54aeff', '#c297ff', '#ff80d2', '#b6e3ff'];
+    var greys = ['#ffffff', '#ffffff', '#ffffff', '#f6f8fa', '#eff2f5', '#e6eaef', '#d8dee4'];
+    var seed = 7;
+    function rnd() { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; }
+    function build() {
+      var w = grid.clientWidth || window.innerWidth;
+      var cols = w < 600 ? 16 : w < 1000 ? 24 : 32;
+      var rows = 8;
+      grid.style.setProperty('--cols', cols);
+      seed = 7;
+      var path = {};
+      var r = rows - 1;
+      for (var c = 0; c < cols; c++) {
+        if (c > cols * 0.3) {
+          var p = rnd();
+          if (p < 0.45 && r > 1) r--; else if (p > 0.85 && r < rows - 1) r++;
+          path[r + ',' + c] = true;
+          if (rnd() > 0.55 && r + 1 < rows) path[(r + 1) + ',' + c] = true;
+        }
+      }
+      var html = '';
+      for (var y = 0; y < rows; y++) {
+        for (var x = 0; x < cols; x++) {
+          var bg;
+          if (path[y + ',' + x]) bg = colors[Math.floor(rnd() * colors.length)];
+          else bg = greys[Math.floor(rnd() * (x < cols * 0.3 ? greys.length : 5))];
+          html += '<i style="background:' + bg + '"></i>';
+        }
+      }
+      grid.innerHTML = html;
+    }
+    build();
+    var t;
+    window.addEventListener('resize', function () { clearTimeout(t); t = setTimeout(build, 150); });
+  })();
+
+  // Ticker: duplicate cards for a seamless loop, and a pause button
+  (function () {
+    var ticker = document.getElementById('ticker');
+    var track = ticker.querySelector('.track');
+    track.innerHTML += track.innerHTML;
+    var btn = document.getElementById('pauseBtn');
+    btn.addEventListener('click', function () {
+      var paused = ticker.classList.toggle('paused');
+      btn.setAttribute('aria-label', paused ? 'Play ticker' : 'Pause ticker');
+      btn.innerHTML = '<svg class="i"><use href="#' + (paused ? 'play' : 'pause') + '"/></svg>';
+    });
+  })();
+</script>
+</body>
+</html>
