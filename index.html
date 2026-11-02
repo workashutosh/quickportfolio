@@ -111,7 +111,7 @@
   .pill .dot { width: 8px; height: 8px; border-radius: 50%; background: #2da44e; box-shadow: 0 0 0 3px var(--green-soft); }
   .pill .chev { display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; border: 1px solid var(--line); background: var(--surface); }
   .hero h1 { font-size: clamp(40px, 6.6vw, 76px); line-height: 1.04; letter-spacing: -0.035em; font-weight: 600; margin: 28px auto 20px; max-width: 13em; }
-  .hero .sub { font-size: clamp(17px, 1.8vw, 20px); color: var(--fg-2); max-width: 40em; margin: 0 auto 36px; line-height: 1.5; }
+  .hero .sub { font-size: clamp(17px, 1.8vw, 20px); color: var(--fg-2); max-width: 40em; margin: 0 auto; line-height: 1.5; }
   .cta-row { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; }
   .mailbox { display: flex; align-items: center; gap: 8px; padding: 4px 4px 4px 18px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg-3); min-width: 0; }
   .mailbox span { color: var(--fg-2); font-size: 16px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding-right: 28px; }
@@ -233,6 +233,9 @@
   .client-logo img { height: 22px; width: auto; }
   .win-bar img.zl { height: 12px; width: auto; }
   :root[data-theme="dark"] .client-logo img, :root[data-theme="dark"] .win-bar img.zl, :root[data-theme="dark"] .tick img.zl { filter: invert(1); }
+  .ckl { height: 14px; width: auto; border-radius: 2px; }
+  .msg-a .av-img { width: 26px; height: auto; flex: none; margin-top: 4px; border-radius: 3px; }
+  :root[data-theme="dark"] .client-logo img.ckl-lg { filter: none; }
   .tick img.zl { height: 12px; width: auto; vertical-align: -1px; }
 
   /* Closing CTA */
@@ -454,10 +457,6 @@
       <a class="pill" href="#contact"><span class="dot"></span>Available for freelance &amp; full-time work<span class="chev"><svg class="i" style="width:12px;height:12px"><use href="#chev"/></svg></span></a>
       <h1>I build softwares companies rely on</h1>
       <p class="sub">Full stack engineer in Mumbai. ERPs, CRMs, full websites and AI products for clients — and production fintech systems serving 100K+ users.</p>
-      <div class="cta-row">
-        <div class="mailbox"><span>mashutoshh@gmail.com</span><a class="btn btn-green btn-lg" href="mailto:mashutoshh@gmail.com">Start a project</a></div>
-        <a class="btn btn-lg" href="assets/Ashutosh-Mishra-Resume.pdf" target="_blank" rel="noopener"><svg class="i"><use href="#download"/></svg>Download résumé</a>
-      </div>
     </section>
   </div>
 
@@ -475,7 +474,7 @@
       <div class="tick"><div class="t1"><span class="ico"><svg class="i"><use href="#cpu"/></svg></span>AI pipeline <em>for</em> <img class="zl" src="assets/zudio-logo.png" alt="Zudio"></div><div class="t2">generative images <span>· in production</span></div></div>
       <div class="tick"><div class="t1"><span class="ico"><svg class="i"><use href="#push"/></svg></span>deployed <em>for</em> PGE Industries</div><div class="t2">pilot-gasket <span>· full website</span></div></div>
       <div class="tick stat"><b>54%</b><small>revenue growth after launch</small></div>
-      <div class="tick"><div class="t1"><span class="ico"><svg class="i"><use href="#cpu"/></svg></span>RAG platform <em>built</em></div><div class="t2">classkit <span>· self-hosted LLM</span></div></div>
+      <div class="tick"><div class="t1"><span class="ico"><svg class="i"><use href="#cpu"/></svg></span><img class="ckl" src="assets/classkit-logo.png" alt="">RAG platform <em>built</em></div><div class="t2">classkit <span>· self-hosted LLM</span></div></div>
     </div>
     <span class="fade l"></span><span class="fade r"></span>
     <button class="pause" id="pauseBtn" aria-label="Pause ticker"><svg class="i"><use href="#pause"/></svg></button>
@@ -525,18 +524,19 @@
       <article class="pcell ai-cell">
         <div class="stage">
           <div class="win" id="classkit">
-            <div class="win-bar"><span class="dots"><i></i><i></i><i></i></span><b>classkit</b><span id="ckCtx">grade 9 · biology</span><span class="sp"></span><span class="run-state done"><span class="spin"></span>self-hosted</span></div>
+            <div class="win-bar"><span class="dots"><i></i><i></i><i></i></span><img class="ckl" src="assets/classkit-logo.png" alt="ClassKit"><b>classkit</b><span id="ckCtx">grade 9 · biology</span><span class="sp"></span><span class="run-state done"><span class="spin"></span>self-hosted</span></div>
             <div class="chat">
               <div class="msg-q" id="ckQ"><span class="caret"></span></div>
               <div class="retr" id="ckR">
                 <div class="retr-head" id="ckRH"><span class="mini-spin"></span><span class="okdot"><svg viewBox="0 0 16 16"><use href="#check"/></svg></span><span id="ckRT">searching school documents…</span></div>
                 <div id="ckDocs"></div>
               </div>
-              <div class="msg-a" id="ckA"><span class="av">CK</span><div class="txt"><span class="model">qwen-2.5-72b · grounded answer</span><span id="ckAT"></span></div></div>
+              <div class="msg-a" id="ckA"><img class="av-img" src="assets/classkit-logo.png" alt="ClassKit"><div class="txt"><span class="model">qwen-2.5-72b · grounded answer</span><span id="ckAT"></span></div></div>
             </div>
           </div>
         </div>
         <div class="pinfo">
+          <div class="client-logo"><img class="ckl-lg" src="assets/classkit-logo.png" alt="ClassKit" width="35" height="22"><span>own product</span></div>
           <h3>ClassKit — AI learning platform for schools</h3>
           <div class="who">EdTech · own product · self-hosted</div>
           <p>Schools upload their own textbooks, notes and slides; students and teachers ask questions and get answers grounded in that material, with sources. A hierarchical RAG pipeline (Docling + PageIndex) finds the right pages, a self-hosted Qwen 2.5 72B writes the answer, and a pluggable agent system generates quizzes, PDFs and PowerPoints. Data never leaves the school's own servers.</p>
